@@ -8,7 +8,7 @@ using namespace std;
     //function: print the data like a graph
 
 //class: interface
-    //function: set welcome ascii upon entering program
+    //function: set welcome ascii upon entering program -- change, set new budget, or use existing
     //function: set closing ascii upon leaving program
     //function: user menu
     //function: can you delete previous stuff from the command line??? function to do that so it acts more like a window
