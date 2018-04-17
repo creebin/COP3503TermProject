@@ -1,30 +1,92 @@
+// ui.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include<vector>
+
 //ui/formatting stuff
 #include <iostream>
 using namespace std;
 
-//blueprint class, forgot what it's called: graphs. two types: bar and pie (if we wanna die, but it'd look so pretty)
-    //function: ratio the data in terms of each other
-    //function: "crop"/simplify the data in such a way that it'll fit the screen
-    //function: print the data like a graph
+class Graphs
+{
+private:
+	vector<string> categoryNames;
+	vector<int> moneyAmount;
 
-//class: interface
-    //function: set welcome ascii upon entering program -- change, set new budget, or use existing
-    //function: set closing ascii upon leaving program
-    //function: user menu
-    //function: can you delete previous stuff from the command line??? function to do that so it acts more like a window
+public:
+	void ratioData(vector<int>);//what inputs, and should it output a vector or smth? should it be completely fleshed out up here since won't change?
+	void cropData(vector<int>);//should be completely fleshed out up here?
+	void printGraph();
+};
 
-//class: data formatting
-    //function: category sort with nice, vertical category formatting
-    //function: budget remainder "graph"
-    //function: bill reminder, like:
-      /*      ______________      ____________
-          !! |   BILL  DUE  | !! |   DATE     | !!
-      /*
-    //functions to pleasingly display the rest of the data manip methods, can't think of a fun way for the others
-    
-    
-int main() {
-  std::cout << "Hello world!" << std::endl;
-  
-  return 0;
+void Graphs::ratioData(vector<int> money) {
+
+}
+
+void Graphs::cropData(vector<int> money) {
+
+}
+
+class BarGraph : public Graphs 
+{
+public:
+	void printGraph() 
+	{
+	}
+};
+
+class PieGraph : public Graphs 
+{
+public:
+	void printGraph() 
+	{
+
+	}
+};
+
+class UserInterface
+{
+public:
+	void welcomeMenu(); //do they want to create a new budget or use an existing budget?
+	void closingScreen();
+	void userMenu();
+	//if choose sort->sorting menu in sorting
+	//take in input
+	void clearScreen();
+
+};
+
+void UserInterface::welcomeMenu() {
+
+}
+
+void UserInterface::closingScreen() {
+
+}
+
+void UserInterface::userMenu() {
+
+}
+
+void UserInterface::clearScreen() {
+
+}
+
+class DataFormatting
+{
+private:
+	string cat1;
+public:
+	//what do they want printed -> function. Categories printed nearly? What's remaining in the budget as a 'battery' graph?
+	void billReminder();
+};
+
+void DataFormatting::billReminder() {
+
+}
+
+int main()
+{
+    return 0;
 }
