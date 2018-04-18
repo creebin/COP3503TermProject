@@ -47,6 +47,10 @@ public:
     vector<Transaction> getAllTransactions();
 
     void addNewTransaction();
+    
+    void createBudget();
+
+    void changeBudget();
 
     void closeFile();
 
