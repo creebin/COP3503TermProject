@@ -19,6 +19,10 @@ private:
 
 public:
     //Member functions
+    string getName();
+
+    void setName(string newName);
+    
     string getCategory();
 
     void setCategory(string newCategory);
