@@ -152,6 +152,133 @@ void Budget::closeFile() {
     fileData.close();
 }
 
+//Creates a new budget file
+void Budget::createBudget() {
+    //Keeps track of the user's input
+    string budgetName;
+    int userSpending;
+    //Creates a new text file to hold the budget
+    cout << "Choose a name for your new budget" << endl;
+    cin >> budgetName;
+    budgetName.append(".txt");
+    ofstream budgetFile(budgetName);
+    //Allows the user to choose how much they want to spend
+    cout << "How much do you want to spend on housing?" << endl;
+    cin >> userSpending;
+    budgetFile << "Housing | " << userSpending << endl;
+    cout << "How much do you want to spend on entertainment?" << endl;
+    cin >> userSpending;
+    budgetFile << "Entertainment | " << userSpending << endl;
+    cout << "How much do you want to spend on food?" << endl;
+    cin >> userSpending;
+    budgetFile << "Food | " << userSpending << endl;
+    cout << "How much do you want to spend on transportation?" << endl;
+    cin >> userSpending;
+    budgetFile << "Transportation | " << userSpending << endl;
+    cout << "How much do you want to spend on medical expenses?" << endl;
+    cin >> userSpending;
+    budgetFile << "Medical | " << userSpending << endl;
+    cout << "How much do you want to spend on clothing?" << endl;
+    cin >> userSpending;
+    budgetFile << "Clothing | " << userSpending << endl;
+    cout << "How much do you want to spend on insurance?" << endl;
+    cin >> userSpending;
+    budgetFile << "Insurance | " << userSpending << endl;
+    cout << "How much do you want to spend on utilities?" << endl;
+    cin >> userSpending;
+    budgetFile << "Utilities | " << userSpending << endl;
+    cout << "How much do you want to spend on things not listed above?" << endl;
+    cin >> userSpending;
+    budgetFile << "Other | " << userSpending << endl;
+    //Closes the file after writing to it
+    budgetFile.close();
+}
+
+//Changes an existing Budget file
+void Budget::changeBudget() {
+    string budgetName;
+    int userChoice;
+    string editCategory;
+    string parseHelper;
+    size_t categoryFinder;
+
+    //Takes in the name of the user's budget and checks if it exists
+    cout << "What is your existing budget called?" << endl;
+    cin >> budgetName;
+    budgetName.append(".txt");
+    fstream budgetFile;
+    budgetFile.open(budgetName);
+    if (!budgetFile) {
+        cout << "Budget not found" << endl;
+    }
+    //Lets the user select what they want to change
+    cout << "Which category do you want to change?" << endl;
+    cout << "1. Housing" << endl;
+    cout << "2. Entertainment" << endl;
+    cout << "3. Food" << endl;
+    cout << "4. Transportation" << endl;
+    cout << "5. Medical" << endl;
+    cout << "6. Clothing" << endl;
+    cout << "7. Insurance" << endl;
+    cout << "8. Utilities" << endl;
+    cout << "9. Other" << endl;
+    cin >> userChoice;
+    switch (userChoice) {
+        case 1:
+            editCategory = "Housing";
+            break;
+        case 2:
+            editCategory = "Entertainment";
+            break;
+        case 3:
+            editCategory = "Food";
+            break;
+        case 4:
+            editCategory = "Transportation";
+            break;
+        case 5:
+            editCategory = "Medical";
+            break;
+        case 6:
+            editCategory = "Clothing";
+            break;
+        case 7:
+            editCategory = "Insurance";
+            break;
+        case 8:
+            editCategory = "Utilities";
+            break;
+        case 9:
+            editCategory = "Other";
+            break;
+        default:
+            cout << "Invalid selection" << endl;
+    }
+    cout << "How much do you want to spend on " << editCategory << endl;
+    cin >> userChoice;
+
+    //Copies all lines except the one to be changed to a temporary file
+    ofstream tempFile;
+    tempFile.open("tempFile.txt", ios::app);
+    while (budgetFile.good()) {
+        getline(budgetFile, parseHelper);
+        categoryFinder = parseHelper.find(editCategory);
+        if (categoryFinder == string::npos) {
+            tempFile << parseHelper << endl;
+            continue;
+        }
+        //Writes edit to the temporary file
+        tempFile << editCategory << " | " << userChoice << endl;
+    }
+    //Closes the files
+    budgetFile.close();
+    tempFile.close();
+    //Replaces the old budget with the new one and renames them
+    remove(budgetName.c_str());
+    rename("tempFile.txt", budgetName.c_str());
+
+}
+
 //Budget constructor
 Budget::Budget(string inputName) {
     fileData.open(inputName);
