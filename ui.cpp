@@ -21,7 +21,7 @@ public:
 void Graphs::ratioData(vector<int> money) {
 
 }
-
+// ratio
 void Graphs::cropData(vector<int> money) {
 
 }
@@ -66,25 +66,47 @@ void UserInterface::welcomeMenu(){
         cin >> welcomeInput;
         validInput = inputChecker(welcomeInput);
         if(!validInput){
-            cout >> "Invalid input please try again\n";
+            cout << "Invalid input please try again\n";
         }
         else{
             int numInput = stoi(welcomeInput);
-            if(numInput <= 4 && numInput >= 1){
-                return 0;
-            }
-            else{
-                validInput = false;
-            }
+            switch(numInput){
+                case 1:
+                    break;
+
+                case 2:
+                    break;
+
+                case 3:
+                    break;
+
+                case 4:
+                    break;
+
+                default:
+                    cout << "Invalid input please try again";
+                    validInput = false;
         }
     }
 
 
+}
+void UserInterface::welcomeScreen(){
+   cout <<" ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗\n";
+    cout <<" ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝\n";
+    cout <<" ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗\n";
+    cout <<" ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝\n";
+    cout <<" ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗\n";
+    cout <<" ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝\n";
 
 }
-
 void UserInterface::closingScreen() {
-
+    cout <<" ██████╗  ██████╗  ██████╗ ██████╗ ██████╗ ██╗   ██╗███████╗██╗\n";
+    cout <<" ██╔════╝ ██╔═══██╗██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██╔════╝██║\n";
+    cout <<" ██║  ███╗██║   ██║██║   ██║██║  ██║██████╔╝ ╚████╔╝ █████╗  ██║\n";
+    cout <<" ██║   ██║██║   ██║██║   ██║██║  ██║██╔══██╗  ╚██╔╝  ██╔══╝  ╚═╝\n";
+    cout <<"╚██████╔╝╚██████╔╝╚██████╔╝██████╔╝██████╔╝   ██║   ███████╗██╗\n";
+    cout <<"╚═════╝  ╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝\n";
 }
 
 void UserInterface::userMenu() {
@@ -105,26 +127,48 @@ void UserInterface::userMenu() {
         }
         else {
             int numInput = stoi(userMenuInput);
-            if(numInput <= 7 && numInput >= 1){
+            switch (numInput) {
                 case 1:
-                {
-                    
+
+                break;
+
+                case 2:
+
+                break;
+
+                case 3:
+
+                    break;
+
+                case 4:
+
+                    break;
+
+                case 5:
+
+                    break;
+
+                case 6:
+                    break;
+
+                case 7: {
+                    closingScreen();
+                    return 0;
                 }
-                case 2:{
-                    
-                }
-                
+                default:
+                    cout << "Invalid input please try again";
+                    validInput = false;
+
             }
-            else{
-                cout << "Invalid input please try again\n";
-                validInput = false;
-            }
+        }
+
         }
     }
 }
 
-void UserInterface::clearScreen() {
 
+void UserInterface::clearScreen() {
+    cout << string(50, '\n');
 }
 
 class DataFormatting
@@ -159,3 +203,4 @@ bool inputChecker(string userInput) {
 int main()
 {
     return 0;
+}
