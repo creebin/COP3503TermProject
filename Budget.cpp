@@ -109,25 +109,68 @@ vector<Transaction> Budget::getAllTransactions() {
 void Budget::addNewTransaction() {
     //Initializes necessary variables to handle the transaction
     Transaction newTransaction;
-    string inputCategory;
-    string inputDate;
+    string inputString;
     string parseHelper;
     ofstream newFileData;
+    int userChoice;
     double inputAmount;
 
     //Gets input from the user
-    cout << "Enter the category of the transaction: " << endl;
-    cin >> inputCategory;
-    newTransaction.setCategory(inputCategory);
+    cout << "Enter the name of the transaction: " << endl;
+    cin >> inputString;
+    newTransaction.setName(inputString);
+    cout << "Select the category of the transaction: " << endl;
+    cout << "1. Housing" << endl;
+    cout << "2. Entertainment" << endl;
+    cout << "3. Food" << endl;
+    cout << "4. Transportation" << endl;
+    cout << "5. Medical" << endl;
+    cout << "6. Clothing" << endl;
+    cout << "7. Insurance" << endl;
+    cout << "8. Utilities" << endl;
+    cout << "9. Other" << endl;
+    cin >> userChoice;
+    switch (userChoice) {
+        case 1:
+            newTransaction.setCategory("Housing");
+            break;
+        case 2:
+            newTransaction.setCategory("Entertainment");
+            break;
+        case 3:
+            newTransaction.setCategory("Food");
+            break;
+        case 4:
+            newTransaction.setCategory("Transportation");
+            break;
+        case 5:
+            newTransaction.setCategory("Medical");
+            break;
+        case 6:
+            newTransaction.setCategory("Clothing");
+            break;
+        case 7:
+            newTransaction.setCategory("Insurance");
+            break;
+        case 8:
+            newTransaction.setCategory("Utilities");
+            break;
+        case 9:
+            newTransaction.setCategory("Other");
+            break;
+        default:
+            cout << "Invalid selection" << endl;
+    }
     cout << "Enter the amount of the transaction : " << endl;
     cin >> inputAmount;
     newTransaction.setAmount(inputAmount);
     cout << "Enter the date of the transaction (MM/DD/YYYY): " << endl;
-    cin >> inputDate;
+    cin >> inputString;
 
     //Saves transaction to the file
     newFileData.open(fileName, ios::app);
-    newFileData << "\n" << inputCategory << ": $" << inputAmount << " - " << inputDate;
+    newFileData << "\n" << newTransaction.getCategory() << " | " << newTransaction.getName() << ": $" << inputAmount
+                << " | " << inputString;
 
     //Handles user adding dates with 1-digit months and days
     if (inputDate[0] == '0') {
