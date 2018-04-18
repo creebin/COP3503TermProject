@@ -1,5 +1,12 @@
 #include "Budget.h"
-
+//Getter for name
+string Transaction::getName(){
+    return name;
+}
+//Setter for name
+void Transaction::setName(string newName){
+    name = newName;
+}
 //Getter for transaction
 string Transaction::getCategory() {
     return category;
