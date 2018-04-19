@@ -7,8 +7,32 @@ BarGraph::BarGraph()
 	fitScreen = 2; 
 }
 
+//sets the original money value vector
+void BarGraph::setMoney(vector<int> mon)
+{
+	money = mon;
+}
+
+//sets the category vector
+void BarGraph::setCats(vector<string> cat)
+{
+	category = cat;
+}
+
+//sets the total budget
+void BarGraph::setBudget(int budg)
+{
+	budget = budg;
+}
+
+//sets the new, altered money value vector
+void BarGraph::setRatio(vector<int> rat)
+{
+	ratio = rat;
+}
+
 //puts the data in terms of each other so that everything is proportional regardless of the size of the budget
-vector<int> BarGraph::ratioData(vector<int> money, int budget) 
+vector<int> BarGraph::ratioData() 
 {
 	//holds the ratio'd money amounts
 	vector<int> newMoney;
@@ -36,21 +60,21 @@ vector<int> BarGraph::ratioData(vector<int> money, int budget)
 }
 
 //ensures the values fit on screen while remaining proportional to each other
-vector<int> BarGraph::cropData(vector<int> money) 
+vector<int> BarGraph::cropData(vector<int> moneyCur) 
 {
-	int listLength = money.size();
+	int listLength = moneyCur.size();
 	for (int i = 0; i < listLength; i++) 
 	{
-		money[i] = money[i] / fitScreen;
+		moneyCur[i] = moneyCur[i] / fitScreen;
 	}
-	return money;
+	return moneyCur;
 }
 
 //handles everything involved in printing the bar graph
-void BarGraph::printGraph(vector<int> money, vector<string> category, vector<int> moneyOriginal) 
+void BarGraph::printGraph() 
 {
 	int listLengthCat = category.size();
-	int listLengthMon = money.size();
+	int listLengthMon = ratio.size();
 	
 	//maximum bar length in order to compare everything
 	const int maxBarLength = 50;
@@ -74,7 +98,7 @@ void BarGraph::printGraph(vector<int> money, vector<string> category, vector<int
 	for (int i = 0; i < listLengthMon; i++) 
 	{
 		int tempDigits = 0;
-		int moneyCopy = moneyOriginal[i];
+		int moneyCopy = money[i];
 		
 		/*divides the money amount by 10 multiple times to determine the number of digits. adds another digit because of how
 		numbers not divisible by 10 end up*/
@@ -99,13 +123,13 @@ void BarGraph::printGraph(vector<int> money, vector<string> category, vector<int
 	{
 		int currentDigits = 0;
 		string currentCat = category[i];
-		int moneyAmount = money[i];
+		int moneyAmount = ratio[i];
 		
 		/*counter: crucial for the formatting process. Keeps track of how many spaces, '|', and digits there are so that the
 		category titles displayed on the graph will line up properly*/
 		int counter = 0;
 
-		int moneyCopy = moneyOriginal[i];
+		int moneyCopy = money[i];
 
 		//once again finds the number of digits in the current number, to compare against the greatest number of digits and aid in formatting
 		while (moneyCopy != 0 || moneyCopy > 1) 
@@ -123,7 +147,7 @@ void BarGraph::printGraph(vector<int> money, vector<string> category, vector<int
 			//once all of the '|' have printed, put a space than the actual dollar amount the bar represents
 			if (counter == moneyAmount) 
 			{
-				cout << " " << moneyOriginal[i];
+				cout << " " << money[i];
 			}
 		}
 		
@@ -131,15 +155,15 @@ void BarGraph::printGraph(vector<int> money, vector<string> category, vector<int
 		if (moneyAmount == 0) 
 		{
 			//if the amount is 0 because of the latter case mentioned...
-			if (moneyOriginal[i] != 0) 
+			if (money[i] != 0) 
 			{
-				cout << "| " << moneyOriginal[i];
+				cout << "| " << money[i];
 				counter = counter + 2;
 			}
 			//if the amount is 0 because of the former case mentioned...
 			else 
 			{
-				cout << moneyOriginal[i];
+				cout << money[i];
 			}
 			//an additional counter that must be added regardless for formatting
 			counter++;
