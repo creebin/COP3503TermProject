@@ -25,14 +25,23 @@ void userMenu() {
 	bool validInput = false;
 	while (!validInput) {
 		string userMenuInput;
-		cout << "1. Print\n";
-		cout << "2. Change budget amount\n";
-		cout << "3. Add expense or transcation\n";
-		cout << "4. Delete expense or transaction\n";
-		cout << "5. Sort\n";
-		cout << "6. Save\n";
-		cout << "7. Graph\n";
-		cout << "8. Exit\n";
+		cout << "+--------------------------------+\n";
+		cout << "|1. Print\n                      |\n";
+		cout << "|--------------------------------|\n";
+		cout << "|2. Change budget amount	  |\n";
+		cout << "|--------------------------------|\n";
+		cout << "|3. Add expense or transcation   |\n";
+		cout << "|--------------------------------|\n";
+		cout << "|4. Delete expense or transaction|\n";
+		cout << "|--------------------------------|\n";
+		cout << "|5. Sort                         |\n";
+		cout << "|--------------------------------|\n";
+		cout << "|6. Save                         |\n";
+		cout << "|--------------------------------|\n";
+		cout << "|7. Graph                        |\n";
+		cout << "|--------------------------------|\n";
+		cout << "|8. Exit                         |\n";
+		cout << "+--------------------------------+\n";
 		cin >> userMenuInput;
 		bool validInput = inputChecker(userMenuInput);
 		if (!validInput) {
