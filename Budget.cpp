@@ -262,7 +262,22 @@ void Budget::addNewTransaction() {
     allTransactions.push_back(newTransaction);
 
 }
-
+//Saves sorted Transactions
+void Budget::saveTransactions(vector<Transaction> saveVector) {
+    fileData.close();
+    ofstream saveFile(fileName);
+    //Writes content from the vector into the file
+    for (int i = 0; i < saveVector.size() - 1; i++) {
+        saveFile << saveVector[i].getCategory() << " | " << saveVector[i].getName() << " $"
+                 << saveVector[i].getAmount() << " | " << saveVector[i].getDate().toString() << endl;
+    }
+    //Prevents an extra newline character at the end of the file
+    saveFile << saveVector[saveVector.size() - 1].getCategory() << " | " << saveVector[saveVector.size() - 1].getName()
+             << " $"
+             << saveVector[saveVector.size() - 1].getAmount() << " | "
+             << saveVector[saveVector.size() - 1].getDate().toString();
+    saveFile.close();
+}
 //Closes the file
 void Budget::closeFile() {
     fileData.close();
@@ -398,7 +413,7 @@ void Budget::changeBudget() {
     rename("tempFile.txt", budgetName.c_str());
 
 }
-
+//Allows the user to use an existing budget
 void Budget::useBudget() {
     string budgetName;
     cout << "What is your existing budget called?" << endl;
