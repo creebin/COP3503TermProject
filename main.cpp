@@ -165,7 +165,29 @@ int main(){
     mayTest = mainBudget.getMayTransactions();
     myTest = mainBudget.getAllTransactions();
     
-    BarGraph b;           
+	//this is how u use the graph code
+    	BarGraph b;
+
+	vector<string> categoryList;
+	vector<int> moneyAmounts;
+
+	vector<int> graphMoney;
+	int totalBudget;
+
+	totalBudget = 52360;
+	categoryList.push_back("Morgage");
+	categoryList.push_back("Food");
+	categoryList.push_back("Transportation");
+	moneyAmounts.push_back(5);
+	moneyAmounts.push_back(5);
+	moneyAmounts.push_back(52350);
+
+	
+	b.setBudget(totalBudget);
+	b.setCats(categoryList);
+	b.setMoney(moneyAmounts);
+	b.setRatio(b.cropData(b.ratioData()));
+	b.printGraph();
     
 
     mainBudget.closeFile();
