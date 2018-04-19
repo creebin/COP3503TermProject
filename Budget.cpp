@@ -1,4 +1,6 @@
 #include "Budget.h"
+#include <algorithm>
+using namespace std;
 
 //Getter for transactionName
 string Transaction::getName() {
@@ -48,9 +50,19 @@ void Transaction::setDate(int month, int day, int year) {
     transactionDate.setYear(year);
 }
 
+void Transaction::setOccurance(bool input){
+	reOccuring = input;
+}
+bool Transaction::getOccurance(){
+	return reOccuring;
+}
+
 //Transaction constructor
 Transaction::Transaction() {
+    transactionName = "";
+    categoryName = "";
     transactionAmount = 0;
+    reOccuring = false;
 }
 
 //Takes one line of data from the file and puts it into a Transaction object, then adds those objects to the vector
@@ -171,6 +183,101 @@ vector<Quota> Budget::getAllQuotas() {
     }
 }
 
+void Budget::updateReOccurance() {
+	vector<Transaction> transactions = allTransactions;
+	struct myclass {
+		bool operator() (Transaction i, Transaction j) { return (i.getName().compare(j.getName()) < 0);}
+	} myobject;
+
+	sort(transactions.begin() , transactions.end() , myobject);
+
+	int gap = 1;
+	bool reOccurance;
+	int length = transactions.size();
+	for (int i = 0; i < length; i += gap){
+		gap = 1;
+		reOccurance = false;
+		for (int j = i+1; j < length; j ++) {
+			if (transactions[i].getName()  == transactions[j].getName()){
+				gap++;
+				if (transactions[i].getDate().getDay() == transactions[j].getDate().getDay() && transactions[i].getAmount() == transactions[j].getAmount()){
+					reOccurance = true;
+				}else {
+					reOccurance = false;
+					for (int k = gap;  gap < length - i -1; k++){
+						if (transactions[i].getName()  == transactions[k].getName()){
+							gap++;
+						}else {
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+		if (reOccurance) {
+			for (int j = 0; j < length; j++) {
+				if (allTransactions[j].getName().compare(transactions[i].getName()) == 0){
+					allTransactions[j].setOccurance(true);
+				}
+			}
+		}
+	}
+}
+
+void Budget::updateReminders(){
+	vector<Transaction> transactions = allTransactions;
+	struct myclass {
+		bool operator() (Transaction i, Transaction j) { return (i.getDate().getDay() > j.getDate().getDay());}
+	} myobject;
+
+	sort(transactions.begin() , transactions.end() , myobject);
+	removeReoccurance(transactions);
+	int length = transactions.size();
+	for (int i = 0; i < length; i ++){
+		if (transactions[i].getOccurance()){
+			reminders.push_back(transactions[i]);
+		}
+	}
+	int lastDay = lastDate().getDay();
+	while(reminders.front().getDate().getDay() < lastDay){
+		reminders.push_back(reminders.front());
+		reminders.pop_front();
+	}
+}
+
+vector<Transaction> Budget::removeReoccurance(vector<Transaction> input){
+	vector<Transaction> output = input;
+	int length = input.size();
+	int gap = 1;
+	for (int i = 0; i < length; i+= gap){
+		gap = 1;
+		for (int j = i+1; j < length; j++){
+			if (output[i].getName().compare(output[j].getName()) == 0 && output[j].getOccurance()){
+				output.erase(input.begin()+j);
+				length--;
+				j--;
+			}
+		}
+	}
+	return output;
+}
+
+Date Budget::lastDate(){
+	vector<Transaction> transactions = allTransactions;
+	Date lastDate;
+	lastDate.setDay(0);
+	lastDate.setMonth(0);
+	lastDate.setYear(0);
+	int length = transactions.size();
+	for (int i = 0; i < length; i++){
+		if (lastDate.getYear() <= transactions[i].getDate().getYear() && lastDate.getMonth() <= transactions[i].getDate().getMonth() && lastDate.getDay() <= transactions[i].getDate().getDay()){
+			lastDate = transactions[i].getDate();
+		}
+	}
+	return lastDate;
+}
+
 //Allows a new transaction to be inputted manually
 void Budget::addNewTransaction() {
     //Initializes necessary variables to handle the transaction
@@ -260,7 +367,9 @@ void Budget::addNewTransaction() {
     newTransaction.getDate().setYear(stoi(parseHelper));
     //Adds the transaction to the vector of transactions
     allTransactions.push_back(newTransaction);
-
+    updateReOccurance();
+    updateReminders();
+    
 }
 //Allows a transaction to be deleted
 void Budget::deleteTransaction() {
@@ -276,6 +385,7 @@ void Budget::deleteTransaction() {
         }
     }
 }
+
 //Saves sorted Transactions
 void Budget::saveTransactions(vector<Transaction> saveVector) {
     fileData.close();
