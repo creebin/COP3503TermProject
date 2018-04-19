@@ -1,21 +1,9 @@
-#include"ui.h"
-#include<vector>
-#include <string>
+#include "ui.h"
 #include <iostream>
-using namespace std;
 
-class BarGraph
-{
-private:
-	vector<string> categoryNames;
-	vector<int> moneyAmount;
-	int totalBudget;
-	const int fitScreen = 2;
-public:
-	vector<int> ratioData(vector<int>, int);
-	vector<int> cropData(vector<int>);
-	void printGraph(vector<int>, vector<string>, vector<int>);
-};
+BarGraph::BarGraph() {
+	fitScreen = 2;
+}
 
 vector<int> BarGraph::ratioData(vector<int> money, int budget) {
 	vector<int> newMoney;
@@ -132,142 +120,122 @@ void BarGraph::printGraph(vector<int> money, vector<string> category, vector<int
 
 }
 
-class UserInterface
-{
-public:
-    void welcomeMenu(); //do they want to create a new budget or use an existing budget?
-    void closingScreen();
-    void userMenu();
-    //if choose sort->sorting menu in sorting
-    //take in input
-    void clearScreen();
+void UserInterface::welcomeMenu() {
+	bool validInput = false;
+	while (!validInput) {
+		string welcomeInput;
+		cout << "1. Create New Budget\n";
+		cout << "2. Change Existing Budget\n";
+		cout << "3. Use Existing Budget\n";
+		cout << "4. Exit Program\n";
+		cin >> welcomeInput;
+		validInput = inputChecker(welcomeInput);
+		if (!validInput) {
+			cout << "Invalid input please try again\n";
+		}
+		else {
+			int numInput = stoi(welcomeInput);
+			switch (numInput) {
+			case 1:
+				break;
 
-};
+			case 2:
+				break;
 
-void UserInterface::welcomeMenu(){
-    bool validInput = false;
-    while(!validInput) {
-        string welcomeInput;
-        cout << "1. Create New Budget\n";
-        cout << "2. Change Existing Budget\n";
-        cout << "3. Use Existing Budget\n";
-        cout << "4. Exit Program\n";
-        cin >> welcomeInput;
-        validInput = inputChecker(welcomeInput);
-        if(!validInput){
-            cout << "Invalid input please try again\n";
-        }
-        else{
-            int numInput = stoi(welcomeInput);
-            switch(numInput){
-                case 1:
-                    break;
+			case 3:
+				break;
 
-                case 2:
-                    break;
+			case 4:
+				break;
 
-                case 3:
-                    break;
+			default:
+				cout << "Invalid input please try again";
+				validInput = false;
+			}
+		}
 
-                case 4:
-                    break;
+	}
+}
 
-                default:
-                    cout << "Invalid input please try again";
-                    validInput = false;
-        }
-    }
-
+void UserInterface::welcomeScreen() {
+	cout << " ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗\n";
+	cout << " ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝\n";
+	cout << " ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗\n";
+	cout << " ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝\n";
+	cout << " ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗\n";
+	cout << " ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝\n";
 
 }
-void UserInterface::welcomeScreen(){
-   cout <<" ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗\n";
-    cout <<" ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝\n";
-    cout <<" ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗\n";
-    cout <<" ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝\n";
-    cout <<" ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗\n";
-    cout <<" ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝\n";
 
-}
 void UserInterface::closingScreen() {
-    cout <<" ██████╗  ██████╗  ██████╗ ██████╗ ██████╗ ██╗   ██╗███████╗██╗\n";
-    cout <<" ██╔════╝ ██╔═══██╗██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██╔════╝██║\n";
-    cout <<" ██║  ███╗██║   ██║██║   ██║██║  ██║██████╔╝ ╚████╔╝ █████╗  ██║\n";
-    cout <<" ██║   ██║██║   ██║██║   ██║██║  ██║██╔══██╗  ╚██╔╝  ██╔══╝  ╚═╝\n";
-    cout <<"╚██████╔╝╚██████╔╝╚██████╔╝██████╔╝██████╔╝   ██║   ███████╗██╗\n";
-    cout <<"╚═════╝  ╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝\n";
+	cout << " ██████╗  ██████╗  ██████╗ ██████╗ ██████╗ ██╗   ██╗███████╗██╗\n";
+	cout << " ██╔════╝ ██╔═══██╗██╔═══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██╔════╝██║\n";
+	cout << " ██║  ███╗██║   ██║██║   ██║██║  ██║██████╔╝ ╚████╔╝ █████╗  ██║\n";
+	cout << " ██║   ██║██║   ██║██║   ██║██║  ██║██╔══██╗  ╚██╔╝  ██╔══╝  ╚═╝\n";
+	cout << "╚██████╔╝╚██████╔╝╚██████╔╝██████╔╝██████╔╝   ██║   ███████╗██╗\n";
+	cout << "╚═════╝  ╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝    ╚═╝   ╚══════╝╚═╝\n";
 }
 
 void UserInterface::userMenu() {
-    bool validInput = false;
-    while(!validInput) {
-        string userMenuInput;
-        cout << "1. Print\n";
-        cout << "2. Change budget amount\n";
-        cout << "3. Add expense or transcation\n";
-        cout << "4. Delete expense or transaction\n";
-        cout << "5. Sort\n";
-        cout << "6. Save\n";
-        cout << "7. Exit\n";
-        cin >> userMenuInput;
-        bool validInput = inputChecker(userMenuInput);
-        if (!validInput) {
-        cout >> "Invalid input please try again\n";
-        }
-        else {
-            int numInput = stoi(userMenuInput);
-            switch (numInput) {
-                case 1:
+	bool validInput = false;
+	while (!validInput) {
+		string userMenuInput;
+		cout << "1. Print\n";
+		cout << "2. Change budget amount\n";
+		cout << "3. Add expense or transcation\n";
+		cout << "4. Delete expense or transaction\n";
+		cout << "5. Sort\n";
+		cout << "6. Save\n";
+		cout << "7. Exit\n";
+		cin >> userMenuInput;
+		bool validInput = inputChecker(userMenuInput);
+		if (!validInput) {
+			cout << "Invalid input please try again\n";
+		}
+		else {
+			int numInput = stoi(userMenuInput);
+			switch (numInput) {
+				case 1:
 
-                break;
+					break;
 
-                case 2:
+				case 2:
+					break;
 
-                break;
+				case 3:
 
-                case 3:
+					break;
 
-                    break;
+				case 4:
 
-                case 4:
+					break;
 
-                    break;
+				case 5:
 
-                case 5:
+					break;
 
-                    break;
+				case 6:
+					break;
 
-                case 6:
-                    break;
+				case 7: 
+					closingScreen();
+					return;
+					
+				default: 
+					 cout << "Invalid input please try again";
+					 validInput = false;
 
-                case 7: {
-                    closingScreen();
-                    return 0;
-                }
-                default:
-                    cout << "Invalid input please try again";
-                    validInput = false;
+				}
+			}
 
-            }
-        }
-
-        }
-    }
-}
+		}
+	}
 
 
 void UserInterface::clearScreen() {
-    cout << string(50, '\n');
+	cout << string(50, '\n');
 }
 
-class DataFormatting
-{
-private:
-    string cat1;
-public:
-    //what do they want printed -> function. Categories printed nearly? What's remaining in the budget as a 'battery' graph?
-    void billReminder();
-};
 
 void DataFormatting::billReminder() {
 
@@ -276,22 +244,20 @@ void DataFormatting::billReminder() {
 
 
 bool inputChecker(string userInput) {
-    bool isNum;
-    for (int i = 0; i < userInput.length(); i++) {
-        if (isdigit(userInput[i])) {
-            isNum = true;
-        } else {
-            isNum = false;
-        }
-    }
-    return isNum;
+	bool isNum;
+	for (int i = 0; i < userInput.length(); i++) {
+		if (isdigit(userInput[i])) {
+			isNum = true;
+		}
+		else {
+			isNum = false;
+		}
+	}
+	return isNum;
 }
-
-
 
 int main()
 {
-    vector<string> categoryList;
 	vector<string> categoryList;
 	vector<int> moneyAmounts;
 
@@ -302,7 +268,7 @@ int main()
 	categoryList.push_back("Morgage");
 	categoryList.push_back("Food");
 	categoryList.push_back("Transportation");
-	moneyAmounts.push_back(11030); //30300 in proportion to 50 is 
+	moneyAmounts.push_back(11030); 
 	moneyAmounts.push_back(11030);
 	moneyAmounts.push_back(30300);
 
@@ -313,5 +279,6 @@ int main()
 	b.printGraph(graphMoney, categoryList, moneyAmounts); 
 
 	cin >> totalBudget;
+
     return 0;
 }
