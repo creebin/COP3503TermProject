@@ -6,8 +6,10 @@
 #include <fstream>
 #include <vector>
 #include "Date.h"
+#include "Quota.h"
 
 using namespace std;
+
 //Transaction class to group the data together
 class Transaction {
 private:
@@ -22,7 +24,7 @@ public:
     string getName();
 
     void setName(string newName);
-    
+
     string getCategory();
 
     void setCategory(string newCategory);
@@ -44,17 +46,31 @@ private:
     ifstream fileData;
     string fileName;
     vector<Transaction> allTransactions;
+    vector<Transaction> aprilTransactions;
+    vector<Transaction> mayTransactions;
+    vector<Quota> allQuotas;
+
+    void parseQuotaData(string quotaName);
+
 public:
 
-    void parseFileData();
+    void parseTransactionData();
 
     vector<Transaction> getAllTransactions();
 
+    vector<Transaction> getAprilTransactions();
+
+    vector<Transaction> getMayTransactions();
+
+    vector<Quota> getAllQuotas();
+
     void addNewTransaction();
-    
+
     void createBudget();
 
     void changeBudget();
+
+    void useBudget();
 
     void closeFile();
 
