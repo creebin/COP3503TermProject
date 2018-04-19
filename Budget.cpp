@@ -1,12 +1,15 @@
 #include "Budget.h"
+
 //Getter for name
-string Transaction::getName(){
+string Transaction::getName() {
     return name;
 }
+
 //Setter for name
-void Transaction::setName(string newName){
+void Transaction::setName(string newName) {
     name = newName;
 }
+
 //Getter for transaction
 string Transaction::getCategory() {
     return category;
@@ -51,7 +54,7 @@ Transaction::Transaction() {
 }
 
 //Takes one line of data from the file and puts it into a Transaction object, then adds those objects to the vector
-void Budget::parseFileData() {
+void Budget::parseTransactionData() {
 
     string currentLine;
     string parseHelper;
@@ -61,39 +64,78 @@ void Budget::parseFileData() {
 
         getline(fileData, currentLine);
         //parseHelper is the category at this line
-        parseHelper = currentLine.substr(0, currentLine.find(':'));
+        parseHelper = currentLine.substr(0, currentLine.find(' '));
         tempTransaction.setCategory(parseHelper);
+        currentLine.erase(0, currentLine.find('|') + 2);
+
+        //parseHelper is the name at this line
+        parseHelper = currentLine.substr(0, currentLine.find('$'));
+        tempTransaction.setName(parseHelper);
         currentLine.erase(0, currentLine.find('$') + 1);
 
-
         //parseHelper is the dollar amount at this line
-        parseHelper = currentLine.substr(0, currentLine.find('-'));
+        parseHelper = currentLine.substr(0, currentLine.find(' '));
         tempTransaction.setAmount(stod(parseHelper));
-        currentLine.erase(0, currentLine.find('-') + 2);
-
+        currentLine.erase(0, currentLine.find('|') + 2);
 
         //parseHelper is the month at this line
         parseHelper = currentLine.substr(0, currentLine.find('/'));
+        //Checks if there is an extra zero before converting parseHelper to an int
+        if (parseHelper[0] == '0') {
+            parseHelper.erase(0, 1);
+        }
         int localMonth = stoi(parseHelper);
         currentLine.erase(0, currentLine.find('/') + 1);
 
-
-        //parseHelper is the day at this line
+        //parseHelper is day at this line
         parseHelper = currentLine.substr(0, currentLine.find('/'));
+        if (parseHelper[0] == '0') {
+            parseHelper.erase(0, 1);
+        }
         int localDay = stoi(parseHelper);
         currentLine.erase(0, currentLine.find('/') + 1);
-
-
-        //parseHelper is the year at this line
-        parseHelper = currentLine;
-        int localYear = stoi(parseHelper);
-
-        //Sets date vector in tempTransaction
+        //Sets the transaction date
+        int localYear = stoi(currentLine);
         tempTransaction.setDate(localMonth, localDay, localYear);
-
-        //Adds the transaction to the account
+        //Adds the transaction to the budget
         allTransactions.push_back(tempTransaction);
+        //Adds the transaction to its respective month
+        if (localMonth == 4) {
+            aprilTransactions.push_back(tempTransaction);
+        }
+        if (localMonth == 5) {
+            mayTransactions.push_back(tempTransaction);
+        }
     }
+}
+
+//Parses an existing budget file to get the user's spending limit
+void Budget::parseQuotaData(string quotaName) {
+
+    string currentLine;
+    string parseHelper;
+    Quota tempQuota;
+
+    //Opens the existing budget file
+    ifstream quotaFile;
+    quotaFile.open(quotaName);
+    //Parses through the budget file and puts the data into allQuotas
+    while (quotaFile.good()) {
+
+        getline(quotaFile, currentLine);
+
+        //parseHelper is the category at this line
+        parseHelper = currentLine.substr(0, currentLine.find(' '));
+        tempQuota.setCategory(parseHelper);
+        currentLine.erase(0, currentLine.find('|') + 2);
+
+        //parseHelper is the spending limit at this line
+        tempQuota.setSpendLimit(stoi(currentLine));
+        allQuotas.push_back(tempQuota);
+    }
+    //Closes the file
+    quotaFile.close();
+
 }
 
 //Gets all the transactions for use in sorting
@@ -102,6 +144,30 @@ vector<Transaction> Budget::getAllTransactions() {
         return allTransactions;
     } else {
         cout << "Error: no transactions" << endl;
+    }
+}
+
+vector<Transaction> Budget::getAprilTransactions() {
+    if (!aprilTransactions.empty()) {
+        return aprilTransactions;
+    } else {
+        cout << "Error: no April transactions" << endl;
+    }
+}
+
+vector<Transaction> Budget::getMayTransactions() {
+    if (!mayTransactions.empty()) {
+        return mayTransactions;
+    } else {
+        cout << "Error: no May transactions" << endl;
+    }
+}
+
+vector<Quota> Budget::getAllQuotas() {
+    if (!allQuotas.empty()) {
+        return allQuotas;
+    } else {
+        cout << "Error: no quotas" << endl;
     }
 }
 
@@ -173,24 +239,24 @@ void Budget::addNewTransaction() {
                 << " | " << inputString;
 
     //Handles user adding dates with 1-digit months and days
-    if (inputDate[0] == '0') {
-        inputDate.erase(0, 1);
+    if (inputString[0] == '0') {
+        inputString.erase(0, 1);
     }
 
     //Uses parsing code from a previous function to handle the date
-    parseHelper = inputDate.substr(0, inputDate.find('/'));
+    parseHelper = inputString.substr(0, inputString.find('/'));
     newTransaction.getDate().setMonth(stoi(parseHelper));
-    inputDate.erase(0, inputDate.find('/') + 1);
-    if (inputDate[0] == '0') {
-        inputDate.erase(0, 1);
+    inputString.erase(0, inputString.find('/') + 1);
+    if (inputString[0] == '0') {
+        inputString.erase(0, 1);
     }
 
-    parseHelper = inputDate.substr(0, inputDate.find('/'));
+    parseHelper = inputString.substr(0, inputString.find('/'));
     newTransaction.getDate().setDay(stoi(parseHelper));
-    inputDate.erase(0, inputDate.find('/') + 1);
+    inputString.erase(0, inputString.find('/') + 1);
 
     //parseHelper is the year at this line
-    parseHelper = inputDate;
+    parseHelper = inputString;
     newTransaction.getDate().setYear(stoi(parseHelper));
     //Adds the transaction to the vector of transactions
     allTransactions.push_back(newTransaction);
@@ -239,7 +305,7 @@ void Budget::createBudget() {
     budgetFile << "Utilities | " << userSpending << endl;
     cout << "How much do you want to spend on things not listed above?" << endl;
     cin >> userSpending;
-    budgetFile << "Other | " << userSpending << endl;
+    budgetFile << "Other | " << userSpending;
     //Closes the file after writing to it
     budgetFile.close();
 }
@@ -318,7 +384,11 @@ void Budget::changeBudget() {
             continue;
         }
         //Writes edit to the temporary file
-        tempFile << editCategory << " | " << userChoice << endl;
+        if (editCategory == "Other") {
+            tempFile << editCategory << " | " << userChoice;
+        } else {
+            tempFile << editCategory << " | " << userChoice << endl;
+        }
     }
     //Closes the files
     budgetFile.close();
@@ -329,7 +399,22 @@ void Budget::changeBudget() {
 
 }
 
+void Budget::useBudget() {
+    string budgetName;
+    cout << "What is your existing budget called?" << endl;
+
+    cin >> budgetName;
+    budgetName.append(".txt");
+    fstream budgetFile;
+    budgetFile.open(budgetName);
+    if (!budgetFile) {
+        cout << "Budget not found" << endl;
+    }
+    parseQuotaData(budgetName);
+}
+
 //Budget constructor
 Budget::Budget(string inputName) {
     fileData.open(inputName);
     fileName = inputName;
+}
