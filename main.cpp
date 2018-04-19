@@ -26,6 +26,7 @@ bool inputChecker(string userInput) {
 //Prints out user menu and asks takes user input for the menu options.
 void userMenu() {
 	bool validInput = false;
+	
 	while (!validInput) {
 		string userMenuInput;
 		cout << "+--------------------------------+\n";
@@ -115,12 +116,14 @@ void welcomeMenu() {
         cout << "|4. Exit Program                 |\n";
         cout << "+--------------------------------+\n";
 		cin >> welcomeInput;
+		// takes user input and sends it to a function that will check if the input is a number.
 		validInput = inputChecker(welcomeInput);
 		if (!validInput) {
 			cout << "Invalid input please try again\n";
 		}
 		else {
 			int numInput = stoi(welcomeInput);
+			// switch statement has cases that correspond to the menu options
 			switch (numInput) {
 			case 1:
 				break;
