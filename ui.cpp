@@ -1,26 +1,23 @@
 #include"ui.h"
-#include "stdafx.h"
 #include<vector>
-
-//ui/formatting stuff
+#include <string>
 #include <iostream>
 using namespace std;
 
-class Graphs
+class BarGraph
 {
 private:
 	vector<string> categoryNames;
 	vector<int> moneyAmount;
 	int totalBudget;
 	const int fitScreen = 2;
-
 public:
-	vector<int> ratioData(vector<int>,int);//what inputs, and should it output a vector or smth? should it be completely fleshed out up here since won't change?
-	vector<int> cropData(vector<int>);//should be completely fleshed out up here?
-	void printGraph(vector<int>, vector<string>);
+	vector<int> ratioData(vector<int>, int);
+	vector<int> cropData(vector<int>);
+	void printGraph(vector<int>, vector<string>, vector<int>);
 };
 
-vector<int> Graphs::ratioData(vector<int> money, int budget) {
+vector<int> BarGraph::ratioData(vector<int> money, int budget) {
 	vector<int> newMoney;
 	int listLength = money.size();
 	for (int i = 0; i < listLength; i++) {
@@ -38,7 +35,7 @@ vector<int> Graphs::ratioData(vector<int> money, int budget) {
 	return newMoney;
 }
 
-vector<int> Graphs::cropData(vector<int> money) {
+vector<int> BarGraph::cropData(vector<int> money) {
 	int listLength = money.size();
 	for (int i = 0; i < listLength; i++) {
 		money[i] = money[i] / fitScreen;
@@ -46,75 +43,94 @@ vector<int> Graphs::cropData(vector<int> money) {
 	return money;
 }
 
-class BarGraph : public Graphs 
-{
-public:
-	void printGraph(vector<int> money,vector<string> category, vector<int> moneyOriginal) 
-	{
-		int listLengthCat = category.size();
-		int listLengthMon = money.size();
-		const int maxBarLength = 50;
+void BarGraph::printGraph(vector<int> money, vector<string> category, vector<int> moneyOriginal) {
+	int listLengthCat = category.size();
+	int listLengthMon = money.size();
+	const int maxBarLength = 50;
 
-		for (int i = 0; i < 100; i++) {
-			cout << "-";
+	for (int i = 0; i < 100; i++) {
+		cout << "-";
+	}
+
+	cout << endl;
+	for (int i = 0; i < 43; i++) {
+		cout << " ";
+	}
+	cout << "BAR GRAPH\n" << endl;
+
+	int digits = 0;
+	for (int i = 0; i < listLengthMon; i++) {
+		int tempDigits = 0;
+		int moneyCopy = moneyOriginal[i];
+		while (moneyCopy != 0) {
+			moneyCopy = moneyCopy / 10;
+			tempDigits++;
+		}
+		if (tempDigits > digits) {
+			digits = tempDigits;
+		}
+		else {
+			continue;
+		}
+	}
+
+
+	for (int i = 0; i < listLengthCat; i++) {
+		int currentDigits = 0;
+		string currentCat = category[i];
+		int moneyAmount = money[i];
+		int counter = 0;
+
+		int moneyCopy = moneyOriginal[i];
+
+		while (moneyCopy != 0 || moneyCopy > 1) {
+			moneyCopy = moneyCopy / 10;
+			currentDigits++;
 		}
 
-		cout << endl;
+		while (counter < moneyAmount) {
+			cout << "|";
+			counter++;
 
-		for (int i = 0; i < listLengthCat; i++) {
-			string currentCat = category[i];
-			int moneyAmount = money[i];
-			int counter = 0;
-			while (counter < moneyAmount) {
-				cout << "|";
-				counter++;
-
-				if (counter == (moneyAmount - 1)) {
-					cout << " " << moneyOriginal[i];
-					
-					
-					int digits = 0;
-					int moneyCopy = moneyOriginal[i];
-
-					while (moneyCopy != 0) {
-						moneyCopy = moneyCopy / 10;
-						digits++;
-					}
-
-					for (int i = 0; i < digits; i++) {
-						counter++;
-					}
-				}
+			if (counter == moneyAmount) {
+				cout << " " << moneyOriginal[i];
 			}
+		}
 
-			if (counter < maxBarLength) {
-				for (int i = 0; i < (maxBarLength - counter); i++) {
-					cout << " ";
-				}
-				cout << " " << currentCat << endl;
+		if (moneyAmount == 0) {
+			if (moneyOriginal[i] != 0) {
+				cout << "| " << moneyOriginal[i];
+				counter = counter + 2;
 			}
 			else {
-				cout << " " << currentCat << endl;
+				cout << moneyOriginal[i];
+			}
+			counter++;
+		}
+
+		if (counter < maxBarLength) {
+			for (int i = 0; i < (maxBarLength - counter); i++) {
+				cout << " ";
 			}
 		}
-
-		for (int i = 0; i < 100; i++) {
-			cout << "-";
+		if (currentDigits != digits) {
+			for (int i = 0; i < digits; i++) {
+				cout << " ";
+			}
+			cout << "  " << currentCat << endl;
 		}
-
-		cout << endl;
-
+		if (currentDigits == digits) {
+			cout << " " << currentCat << endl;
+		}
 	}
-};
 
-class PieGraph : public Graphs
-{
-public:
-    void printGraph()
-    {
+	for (int i = 0; i < 100; i++) {
+		cout << "-";
+	}
 
-    }
-};
+	cout << endl;
+
+}
 
 class UserInterface
 {
@@ -276,6 +292,7 @@ bool inputChecker(string userInput) {
 int main()
 {
     vector<string> categoryList;
+	vector<string> categoryList;
 	vector<int> moneyAmounts;
 
 	vector<int> graphMoney;
@@ -285,19 +302,15 @@ int main()
 	categoryList.push_back("Morgage");
 	categoryList.push_back("Food");
 	categoryList.push_back("Transportation");
-	moneyAmounts.push_back(30300); //30300 in proportion to 50 is 
+	moneyAmounts.push_back(11030); //30300 in proportion to 50 is 
 	moneyAmounts.push_back(11030);
-	moneyAmounts.push_back(11030);
+	moneyAmounts.push_back(30300);
 
 	BarGraph b;
 
 	graphMoney = b.cropData(b.ratioData(moneyAmounts, totalBudget));
 
-	for (int i = 0; i < graphMoney.size(); i++) {
-		cout << graphMoney[i] << " ";
-	}
-	cout << endl;
-	b.printGraph(graphMoney, categoryList, moneyAmounts); //TODO: Looks bad if bar graph at max capacity, categories unaligned bc of digit size. Find max size by 50+category character amount + digits of number amount?
+	b.printGraph(graphMoney, categoryList, moneyAmounts); 
 
 	cin >> totalBudget;
     return 0;
