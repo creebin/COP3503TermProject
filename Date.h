@@ -18,6 +18,12 @@ struct Date {
 
     int compareTo(Date other) const;
 
+    int getDay();
+
+    int getMonth();
+
+    int getYear();
+
     void setDay(int newDay);
 
     void setMonth(int newMonth);
