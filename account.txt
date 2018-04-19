@@ -1,7 +1,7 @@
 April
 Housing | mortage $1567.99 | 04/01/2018 +
-Food | chiptole  $9.50  |  04/03/2018
-Transportation | uber  $3.00 | 04/05/2018 
+Food | chiptole $9.50 | 04/03/2018
+Transportation | uber $3.00 | 04/05/2018 
 Medical | broken arm $60.00 | 04/07/2018
 Housing | spoon $80.00 | 04/02/2018
 Clothing | marshalls $506.85 | 04/13/2018
@@ -49,7 +49,7 @@ Food | panda express $8.09 | 04/14/2018
 Insurance | car $1020.00 | 04/20/2018 +
 Utilities | gas $60.50 | 04/20/2018 +
 Other | nails $56.32 | 04/16/2018
-transportation | uber $49.53 | 04/10/2018
+Transportation | uber $49.53 | 04/10/2018
 Utilities | garbage $80.62 | 04/26/2018 +
 Clothing | footlocker $45.69 | 04/20/2018
 Food | bento $45.96 | 04/20/2018
@@ -64,8 +64,8 @@ Entertainment | netflix $12.35 | 04/18/2018 +
 
 May
 Housing | mortage $1567.99 | 05/01/2018 +
-Food | Red Lobster $26.50  |  05/13/2018
-Transportation | uber  $15.00 | 05/23/2018 
+Food | red lobster $26.50 | 05/13/2018
+Transportation | uber $15.00 | 05/23/2018 
 Medical | broken leg $120.00 | 05/17/2018
 Insurance | geico $2.00 | 05/09/2018 +
 Food | fridays $623.85 | 05/23/2018
