@@ -76,12 +76,12 @@ Medical | blood transfusion $18.45 | 05/05/2018
 Other | pullup bar $63.32 | 05/24/2018
 Entertainment | netflix $12.35 | 05/18/2018 +
 Medical | contacts $306.56 | 05/06/2018
-transportation | train $20.99 | 05/23/2018
+Transportation | train $20.99 | 05/23/2018
 Housing | lava lamp $85.00 | 05/20/2018
 Medical | birth control $60.90 | 05/08/2018
 Insurance | life $23156.62 | 05/17/2018 +
 Entertainment | video game $59.36 | 05/25/2018
-transportation | gas $40.50 | 05/15/2018
+Transportation | gas $40.50 | 05/15/2018
 Other | phone cable $8.32 | 05/03/2018
 Insurance | car $1020.00 | 05/20/2018 +
 Clothing | nordstrom $34.23 | 05/30/2018
