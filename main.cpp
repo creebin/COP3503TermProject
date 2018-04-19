@@ -30,6 +30,8 @@ void userMenu() {
 	while (!validInput) {
 		string userMenuInput;
 		cout << "+--------------------------------+\n";
+		cout << "|What would you like to do?      |\n";
+		cout << "|================================|\n";
 		cout << "|1. Print\n                      |\n";
 		cout << "|--------------------------------|\n";
 		cout << "|2. Change budget amount	  |\n";
@@ -106,7 +108,10 @@ void welcomeMenu() {
 	bool validInput = false;
 	while (!validInput) {
 		string welcomeInput;
+	
 	cout << "+--------------------------------+\n";
+	cout << "|Choose a budget option:         |\n "
+	cout << "|================================|\n";
         cout << "|1. Create New Budget            |\n";
         cout << "|--------------------------------|\n";
         cout << "|2. Change Existing Budget       |\n";
