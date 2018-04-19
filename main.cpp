@@ -27,7 +27,7 @@ void userMenu() {
 		cout << "4. Delete expense or transaction\n";
 		cout << "5. Sort\n";
 		cout << "6. Save\n";
-		cout << "7. Graphs"
+		cout << "7. Graph\n";
 		cout << "8. Exit\n";
 		cin >> userMenuInput;
 		bool validInput = inputChecker(userMenuInput);
@@ -60,6 +60,8 @@ void userMenu() {
 					break;
 
 				case 7: 
+					//graphMoney = b.cropData(b.ratioData(moneyAmounts, totalBudget));
+    					//b.printGraph(graphMoney, categoryList, moneyAmounts);   
 					break;
 					
 				case 8:
@@ -128,7 +130,7 @@ int main(){
     mayTest = mainBudget.getMayTransactions();
     myTest = mainBudget.getAllTransactions();
     
-                      
+    BarGraph b;           
     
 
     mainBudget.closeFile();
