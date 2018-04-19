@@ -1,21 +1,23 @@
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include "storage.h"
+#include "Budget.h"
+
 using namespace std;
 
 
 int main(){
     
-    vector<Transaction> sampleSort;
-    string inputFile;
-    cout << "Please enter the name of the Bank Account File: " << endl;
-    cin >> inputFile;
-    BankAccount mainAccount(inputFile);
-    mainAccount.parseFileData();
-    sampleSort = mainAccount.getAllTransactions();
-
-    mainAccount.addNewTransaction();
+    vector<Transaction> allTest;
+    vector<Transaction> aprilTest;
+    vector<Transaction> mayTest;
+    
+    Budget mainBudget("account.txt);
+    //Assign vectors then pass them to necessary sorting functions
+    aprilTest = myBudget.getAprilTransactions();
+    mayTest = myBudget.getMayTransactions();
+    myTest = myBudget.getAllTransactions();
+    
+                      
+    
 
     mainAccount.closeFile();
   
