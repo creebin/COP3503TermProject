@@ -6,7 +6,7 @@ Medical | broken arm $60.00 | 04/07/2018
 Housing | spoon $80.00 | 04/02/2018
 Clothing | marshalls $506.85 | 04/13/2018
 Housing | dining table $200.00 | 04/16/2018
-transportation | lyft $20.89 | 04/25/2018
+Transportation | lyft $20.89 | 04/25/2018
 Clothing | tj max $200.86 | 04/16/2018
 Medical | tylenol $15.60 | 04/09/2018
 Entertainment | fair $60.35 | 04/08/2018
@@ -18,14 +18,14 @@ Food | chick Fil A $25.36 | 04/26/2018
 Food | panda express $8.09 | 04/14/2018
 Insurance | medical $6020.45 | 04/23/2018 +
 Utilities | water/sewage $105.35 | 04/23/2018 +
-transportation | gas $60.50 | 04/25/2018
-transportation | lyft $30.54 | 04/12/2018
+Transportation | gas $60.50 | 04/25/2018
+Transportation | lyft $30.54 | 04/12/2018
 Housing | rug $50.00 | 04/05/2018
 Medical | aleve $20.45 | 04/25/2018
 Other | chairty $49.62 | 04/26/2018
 Insurance | geico $2.00 | 04/09/2018 +
 Entertainment | movies $27.50 | 04/19/2018
-transportation | airplane $522.36 | 04/30/2018
+Transportation | airplane $522.36 | 04/30/2018
 Housing | lamp $12.00 | 04/23/2018
 Clothing | burlington $26.30 | 04/30/2018
 Medical | nyquil $25.60 | 04/28/2016
@@ -33,7 +33,7 @@ Insurance | computer $12.23 | 04/06/2018 +
 Entertainment | trampoline park $45.60 | 04/23/2018
 Entertainment | video game $60.99 | 04/19/2018
 Food | blaze $18.85 | 04/25/2018
-transportation | car $522.96 | 04/23/2018 +
+Transportation | car $522.96 | 04/23/2018 +
 Medical | dayquil $18.60 | 04/03/2018
 Entertainment | hulu $30.99 | 04/30/2018 +
 Other | haircut $203.89 | 04/30/2018
@@ -93,7 +93,7 @@ Clothing | old navy $65.69 | 05/19/2018
 Insurance | medical $6020.45 | 05/23/2018 +
 Other | gallium $648.62 | 05/23/2018
 Clothing | gap $200.86 | 05/16/2018
-transportation | bus $2.36 | 05/06/2018
+Transportation | bus $2.36 | 05/06/2018
 Insurance | computer $12.23 | 05/06/2018 +
 Entertainment | movie $103.56 | 05/30/2018
 Utilities | gas $60.50 | 05/20/2018 +
@@ -102,11 +102,11 @@ Food | outback $23.36 | 05/30/2018
 Clothing | nike $560.45 | 05/29/2018
 Other | magnets $16.63 | 05/16/2018
 Insurance | housing $5260.78 | 05/30/2018 +
-transportation | lyft $96.54 | 05/02/2018
+Transportation | lyft $96.54 | 05/02/2018
 Food | bahama breeze $85.09 | 05/24/2018
 Housing | fork $30.00 | 05/03/2018
 Insurance | phone $305.46 | 05/05/2018 +
-transportation | car $522.96 | 05/23/2018 +
+Transportation | car $522.96 | 05/23/2018 +
 Utilities | garbage $80.62 | 05/26/2018 +
 Clothing | victoria secrets $63.05 | 05/06/2018
 Other | headphones $890.26 | 05/06/2018
@@ -115,7 +115,7 @@ Medical | lasik $8236.52 | 05/03/2018
 Other | fireworks $23.89 | 05/23/2018
 Food | krispy Kreme $60.55 | 05/15/2018
 Housing | chair $560.00 | 05/05/2018
-transportation | uber $10.53 | 05/03/2018
+Transportation | uber $10.53 | 05/03/2018
 Medical | cosmetic surgery $56320.60 | 05/16/2016
 Entertainment | movies $16.50 | 05/29/2018
 Utilities | electricity $50.00 | 05/26/2018 +
