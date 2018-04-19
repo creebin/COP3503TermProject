@@ -12,14 +12,14 @@ int main(){
     
     Budget mainBudget("account.txt);
     //Assign vectors then pass them to necessary sorting functions
-    aprilTest = myBudget.getAprilTransactions();
-    mayTest = myBudget.getMayTransactions();
-    myTest = myBudget.getAllTransactions();
+    aprilTest = mainBudget.getAprilTransactions();
+    mayTest = mainBudget.getMayTransactions();
+    myTest = mainBudget.getAllTransactions();
     
                       
     
 
-    mainAccount.closeFile();
+    mainBudget.closeFile();
   
 return 0;
 }
