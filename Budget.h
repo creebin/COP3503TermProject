@@ -65,6 +65,8 @@ public:
     vector<Quota> getAllQuotas();
 
     void addNewTransaction();
+    
+    void saveTransactions(vector<Transaction> saveVector);
 
     void createBudget();
 
