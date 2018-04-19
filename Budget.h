@@ -49,12 +49,12 @@ private:
     vector<Transaction> aprilTransactions;
     vector<Transaction> mayTransactions;
     vector<Quota> allQuotas;
+    
+    void parseTransactionData();
 
     void parseQuotaData(string quotaName);
 
 public:
-
-    void parseTransactionData();
 
     vector<Transaction> getAllTransactions();
 
