@@ -417,4 +417,5 @@ void Budget::useBudget() {
 Budget::Budget(string inputName) {
     fileData.open(inputName);
     fileName = inputName;
+    parseTransactionData();
 }
