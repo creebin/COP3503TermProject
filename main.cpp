@@ -87,10 +87,15 @@ void welcomeMenu() {
 	bool validInput = false;
 	while (!validInput) {
 		string welcomeInput;
-		cout << "1. Create New Budget\n";
-		cout << "2. Change Existing Budget\n";
-		cout << "3. Use Existing Budget\n";
-		cout << "4. Exit Program\n";
+	cout << "+--------------------------------+\n";
+        cout << "|1. Create New Budget            |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|2. Change Existing Budget       |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|3. Use Existing Budget          |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|4. Exit Program                 |\n";
+        cout << "+--------------------------------+\n";
 		cin >> welcomeInput;
 		validInput = inputChecker(welcomeInput);
 		if (!validInput) {
