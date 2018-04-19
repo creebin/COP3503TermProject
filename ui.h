@@ -9,11 +9,19 @@ using namespace std;
 class BarGraph {
 private:
 	int fitScreen;
+	vector<int> money;
+	vector<string> category;
+	vector<int> ratio;
+	int budget;
 public:
 	BarGraph();
-	vector<int> ratioData(vector<int>, int);
+	void setMoney(vector<int>);
+	void setBudget(int);
+	void setCats(vector<string>);
+	void setRatio(vector<int>);
+	vector<int> ratioData();
 	vector<int> cropData(vector<int>);
-	void printGraph(vector<int>, vector<string>, vector<int>);
+	void printGraph();
 };
 
 //the class responsible for the displays the user is greeted with
