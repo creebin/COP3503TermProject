@@ -9,29 +9,102 @@ using namespace std;
 class Graphs
 {
 private:
-    vector<string> categoryNames;
-    vector<int> moneyAmount;
+	vector<string> categoryNames;
+	vector<int> moneyAmount;
+	int totalBudget;
+	const int fitScreen = 2;
 
 public:
-    void ratioData(vector<int>);//what inputs, and should it output a vector or smth? should it be completely fleshed out up here since won't change?
-    void cropData(vector<int>);//should be completely fleshed out up here?
-    void printGraph();
+	vector<int> ratioData(vector<int>,int);//what inputs, and should it output a vector or smth? should it be completely fleshed out up here since won't change?
+	vector<int> cropData(vector<int>);//should be completely fleshed out up here?
+	void printGraph(vector<int>, vector<string>);
 };
 
-void Graphs::ratioData(vector<int> money) {
-
+vector<int> Graphs::ratioData(vector<int> money, int budget) {
+	vector<int> newMoney;
+	int listLength = money.size();
+	for (int i = 0; i < listLength; i++) {
+		double moneyRatio = money[i];
+		moneyRatio = (moneyRatio / budget) * 100;
+		if ((moneyRatio + .5) >= (int(moneyRatio) + 1)) {
+			moneyRatio = int(moneyRatio) + 1; //HOW TO PREVENT THE WARNING TODO
+			newMoney.push_back(moneyRatio);
+		}
+		else {
+			moneyRatio = int(moneyRatio); //HOW TO PREVENT THE WARNING TODO
+			newMoney.push_back(moneyRatio);
+		}
+	}
+	return newMoney;
 }
-// ratio
-void Graphs::cropData(vector<int> money) {
 
+vector<int> Graphs::cropData(vector<int> money) {
+	int listLength = money.size();
+	for (int i = 0; i < listLength; i++) {
+		money[i] = money[i] / fitScreen;
+	}
+	return money;
 }
 
-class BarGraph : public Graphs
+class BarGraph : public Graphs 
 {
 public:
-    void printGraph()
-    {
-    }
+	void printGraph(vector<int> money,vector<string> category, vector<int> moneyOriginal) 
+	{
+		int listLengthCat = category.size();
+		int listLengthMon = money.size();
+		const int maxBarLength = 50;
+
+		for (int i = 0; i < 100; i++) {
+			cout << "-";
+		}
+
+		cout << endl;
+
+		for (int i = 0; i < listLengthCat; i++) {
+			string currentCat = category[i];
+			int moneyAmount = money[i];
+			int counter = 0;
+			while (counter < moneyAmount) {
+				cout << "|";
+				counter++;
+
+				if (counter == (moneyAmount - 1)) {
+					cout << " " << moneyOriginal[i];
+					
+					
+					int digits = 0;
+					int moneyCopy = moneyOriginal[i];
+
+					while (moneyCopy != 0) {
+						moneyCopy = moneyCopy / 10;
+						digits++;
+					}
+
+					for (int i = 0; i < digits; i++) {
+						counter++;
+					}
+				}
+			}
+
+			if (counter < maxBarLength) {
+				for (int i = 0; i < (maxBarLength - counter); i++) {
+					cout << " ";
+				}
+				cout << " " << currentCat << endl;
+			}
+			else {
+				cout << " " << currentCat << endl;
+			}
+		}
+
+		for (int i = 0; i < 100; i++) {
+			cout << "-";
+		}
+
+		cout << endl;
+
+	}
 };
 
 class PieGraph : public Graphs
@@ -202,5 +275,30 @@ bool inputChecker(string userInput) {
 
 int main()
 {
+    vector<string> categoryList;
+	vector<int> moneyAmounts;
+
+	vector<int> graphMoney;
+	int totalBudget;
+
+	totalBudget = 52360;
+	categoryList.push_back("Morgage");
+	categoryList.push_back("Food");
+	categoryList.push_back("Transportation");
+	moneyAmounts.push_back(30300); //30300 in proportion to 50 is 
+	moneyAmounts.push_back(11030);
+	moneyAmounts.push_back(11030);
+
+	BarGraph b;
+
+	graphMoney = b.cropData(b.ratioData(moneyAmounts, totalBudget));
+
+	for (int i = 0; i < graphMoney.size(); i++) {
+		cout << graphMoney[i] << " ";
+	}
+	cout << endl;
+	b.printGraph(graphMoney, categoryList, moneyAmounts); //TODO: Looks bad if bar graph at max capacity, categories unaligned bc of digit size. Find max size by 50+category character amount + digits of number amount?
+
+	cin >> totalBudget;
     return 0;
 }
