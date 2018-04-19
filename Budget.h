@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <deque>
 #include "Date.h"
 #include "Quota.h"
 
@@ -18,6 +19,7 @@ private:
     string categoryName;
     double transactionAmount;
     Date transactionDate;
+    bool reOccuring;
 
 public:
     //Member functions
@@ -37,6 +39,10 @@ public:
 
     void setDate(int month, int day, int year);
 
+    bool getOccurance();
+
+    void setOccurance(bool reOccuring);
+
     Transaction();
 };
 
@@ -53,6 +59,16 @@ private:
     void parseQuotaData(string quotaName);
 
     void parseTransactionData();
+    
+    void updateReOccurance();
+    
+    void updateReminders();
+    
+    vector<Transaction> removeReoccurance(vector<Transaction> input);
+    
+    void checkReOccurance(Transaction input);
+    
+    Date lastDate();
 
 public:
 
