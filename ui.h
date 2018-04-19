@@ -5,6 +5,7 @@
 #include <string>
 using namespace std;
 
+//the class for graphing data received from other parts of the program
 class BarGraph {
 private:
 	int fitScreen;
@@ -15,27 +16,20 @@ public:
 	void printGraph(vector<int>, vector<string>, vector<int>);
 };
 
+//the class responsible for the displays the user is greeted with
 class UserInterface
 {
 public:
-	void welcomeMenu(); //do they want to create a new budget or use an existing budget?
 	void welcomeScreen();
 	void closingScreen();
-	void userMenu();
-	//if choose sort->sorting menu in sorting
-	//take in input
 	void clearScreen();
-
 };
 
+//the class responsible for printing the data from other parts of the program
 class DataFormatting
 {
-private:
 public:
-	//what do they want printed -> function. Categories printed nearly? What's remaining in the budget as a 'battery' graph?
 	void billReminder();
 };
-
-bool inputChecker(string);
 
 #endif
