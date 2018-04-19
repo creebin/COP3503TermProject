@@ -24,6 +24,17 @@ string Date::toString()
 {
     return to_string(this->month) + "/" + to_string(this->day) + "/" + to_string(this->year);
 }
+
+int Date::getDay(){
+	return day;
+}
+int Date::getMonth(){
+	return month;
+}
+int Date::getYear(){
+	return year;
+}
+
 //Default constructor
 Date::Date()
 {
