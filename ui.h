@@ -38,6 +38,7 @@ class DataFormatting
 {
 public:
 	void billReminder();
+	void budgetRemainder();
 };
 
 #endif
