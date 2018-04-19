@@ -1,36 +1,36 @@
 #include "Budget.h"
 
-//Getter for name
+//Getter for transactionName
 string Transaction::getName() {
-    return name;
+    return transactionName;
 }
 
-//Setter for name
+//Setter for transactionName
 void Transaction::setName(string newName) {
-    name = newName;
+    transactionName = newName;
 }
 
 //Getter for transaction
 string Transaction::getCategory() {
-    return category;
+    return categoryName;
 }
 
 //Setter for transaction
 void Transaction::setCategory(string newCategory) {
-    category = newCategory;
+    categoryName = newCategory;
 }
 
-//Getter for amount
+//Getter for transactionAmount
 double Transaction::getAmount() {
-    return amount;
+    return transactionAmount;
 }
 
-//Setter for amount
+//Setter for transactionAmount
 void Transaction::setAmount(double newAmount) {
     if (newAmount >= 0) {
-        amount = newAmount;
+        transactionAmount = newAmount;
     } else {
-        cout << "Invalid amount" << endl;
+        cout << "Invalid transactionAmount" << endl;
     }
 }
 
@@ -50,7 +50,7 @@ void Transaction::setDate(int month, int day, int year) {
 
 //Transaction constructor
 Transaction::Transaction() {
-    amount = 0;
+    transactionAmount = 0;
 }
 
 //Takes one line of data from the file and puts it into a Transaction object, then adds those objects to the vector
@@ -63,17 +63,17 @@ void Budget::parseTransactionData() {
     while (fileData.good()) {
 
         getline(fileData, currentLine);
-        //parseHelper is the category at this line
+        //parseHelper is the categoryName at this line
         parseHelper = currentLine.substr(0, currentLine.find(' '));
         tempTransaction.setCategory(parseHelper);
         currentLine.erase(0, currentLine.find('|') + 2);
 
-        //parseHelper is the name at this line
+        //parseHelper is the transactionName at this line
         parseHelper = currentLine.substr(0, currentLine.find('$'));
         tempTransaction.setName(parseHelper);
         currentLine.erase(0, currentLine.find('$') + 1);
 
-        //parseHelper is the dollar amount at this line
+        //parseHelper is the dollar transactionAmount at this line
         parseHelper = currentLine.substr(0, currentLine.find(' '));
         tempTransaction.setAmount(stod(parseHelper));
         currentLine.erase(0, currentLine.find('|') + 2);
@@ -124,7 +124,7 @@ void Budget::parseQuotaData(string quotaName) {
 
         getline(quotaFile, currentLine);
 
-        //parseHelper is the category at this line
+        //parseHelper is the categoryName at this line
         parseHelper = currentLine.substr(0, currentLine.find(' '));
         tempQuota.setCategory(parseHelper);
         currentLine.erase(0, currentLine.find('|') + 2);
@@ -182,10 +182,10 @@ void Budget::addNewTransaction() {
     double inputAmount;
 
     //Gets input from the user
-    cout << "Enter the name of the transaction: " << endl;
+    cout << "Enter the transactionName of the transaction: " << endl;
     cin >> inputString;
     newTransaction.setName(inputString);
-    cout << "Select the category of the transaction: " << endl;
+    cout << "Select the categoryName of the transaction: " << endl;
     cout << "1. Housing" << endl;
     cout << "2. Entertainment" << endl;
     cout << "3. Food" << endl;
@@ -227,7 +227,7 @@ void Budget::addNewTransaction() {
         default:
             cout << "Invalid selection" << endl;
     }
-    cout << "Enter the amount of the transaction : " << endl;
+    cout << "Enter the transactionAmount of the transaction : " << endl;
     cin >> inputAmount;
     newTransaction.setAmount(inputAmount);
     cout << "Enter the date of the transaction (MM/DD/YYYY): " << endl;
@@ -262,6 +262,20 @@ void Budget::addNewTransaction() {
     allTransactions.push_back(newTransaction);
 
 }
+//Allows a transaction to be deleted
+void Budget::deleteTransaction() {
+    string inputName;
+   // size_t nameFinder;
+    cout << "What transaction should be deleted?" << endl;
+    cin >> inputName;
+    for (int i = 0; i < allTransactions.size(); i++) {
+        if(allTransactions[i].getName().find(inputName) != string::npos){
+            cout << "Found it" << endl;
+        }else{
+            cout << "Didn't find it " << endl;
+        }
+    }
+}
 //Saves sorted Transactions
 void Budget::saveTransactions(vector<Transaction> saveVector) {
     fileData.close();
@@ -289,7 +303,7 @@ void Budget::createBudget() {
     string budgetName;
     int userSpending;
     //Creates a new text file to hold the budget
-    cout << "Choose a name for your new budget" << endl;
+    cout << "Choose a transactionName for your new budget" << endl;
     cin >> budgetName;
     budgetName.append(".txt");
     ofstream budgetFile(budgetName);
@@ -333,7 +347,7 @@ void Budget::changeBudget() {
     string parseHelper;
     size_t categoryFinder;
 
-    //Takes in the name of the user's budget and checks if it exists
+    //Takes in the transactionName of the user's budget and checks if it exists
     cout << "What is your existing budget called?" << endl;
     cin >> budgetName;
     budgetName.append(".txt");
@@ -343,7 +357,7 @@ void Budget::changeBudget() {
         cout << "Budget not found" << endl;
     }
     //Lets the user select what they want to change
-    cout << "Which category do you want to change?" << endl;
+    cout << "Which categoryName do you want to change?" << endl;
     cout << "1. Housing" << endl;
     cout << "2. Entertainment" << endl;
     cout << "3. Food" << endl;
@@ -433,4 +447,5 @@ Budget::Budget(string inputName) {
     fileData.open(inputName);
     fileName = inputName;
     parseTransactionData();
+
 }

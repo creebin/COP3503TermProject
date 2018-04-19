@@ -14,9 +14,9 @@ using namespace std;
 class Transaction {
 private:
     //Member variables
-    string name;
-    string category;
-    double amount;
+    string transactionName;
+    string categoryName;
+    double transactionAmount;
     Date transactionDate;
 
 public:
@@ -49,10 +49,10 @@ private:
     vector<Transaction> aprilTransactions;
     vector<Transaction> mayTransactions;
     vector<Quota> allQuotas;
-    
-    void parseTransactionData();
 
     void parseQuotaData(string quotaName);
+
+    void parseTransactionData();
 
 public:
 
@@ -65,7 +65,9 @@ public:
     vector<Quota> getAllQuotas();
 
     void addNewTransaction();
-    
+
+    void deleteTransaction();
+
     void saveTransactions(vector<Transaction> saveVector);
 
     void createBudget();
