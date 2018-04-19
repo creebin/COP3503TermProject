@@ -214,3 +214,9 @@ void DataFormatting::billReminder()
 {
 
 }
+
+//displays the remaining budget in a pleasing and informative manner
+void DataFormatting::budgetRemainder()
+{
+	//like a battery
+}
