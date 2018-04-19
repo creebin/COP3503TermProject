@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Budget.h"
 #include "ui.h"
+#include "Date.h"
+#include "Quota.h"
+
 
 using namespace std;
 
