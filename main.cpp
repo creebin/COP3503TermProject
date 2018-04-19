@@ -1,5 +1,8 @@
 #include <iostream>
 #include "Budget.h"
+#include "Data.h"
+#include "Quota.h"
+#include "ui.h"
 
 using namespace std;
 
