@@ -154,7 +154,7 @@ int main(){
     vector<Transaction> aprilTest;
     vector<Transaction> mayTest;
     
-    Budget mainBudget("account.txt);
+    Budget mainBudget("account.txt");
     //Assign vectors then pass them to necessary sorting functions
     aprilTest = mainBudget.getAprilTransactions();
     mayTest = mainBudget.getMayTransactions();
