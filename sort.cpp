@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <math.h>
-#include "Budget.cpp"
+#include "Budget.h"
 
 using namespace std;
 
@@ -17,9 +17,9 @@ struct Expense
     }
 
     //sets everything
-    void setExpenseName(string Expensename)
+    void setExpenseName(string ExpenseName)
     {
-        name = Expensename;
+        name = ExpenseName;
     }
 
     void setExpenseAmount(int expenseAmount)
@@ -37,12 +37,12 @@ struct Expense
 class Category
 {
 public:
-    string name;
-    int budgetAmount;
+    string name = "";
+    int budgetAmount = 0;
     vector<Expense> expenseVec;
-    int percent;
+    int percent = 0;
 
-    void setbudgetAmount(int x)
+    void setBudgetAmount(int x)
     {
         budgetAmount = x;
     }
@@ -52,8 +52,9 @@ public:
         name = catName;
     }
 
-    void setPercentAmount(int x){
-        percent=x;
+    void setPercentAmount(int x)
+    {
+        percent = x;
     }
 
     //prints category and their expenses
@@ -70,8 +71,12 @@ public:
         return printCategory;
     }
 
+    //sorts all the expenses from either lowest to highest value or highest to lowest value
     void sortByExpenseName (bool lowToHigh)
     {
+        //looks at the beginning of the line all the way to the end and uses a lambda expression
+        //loops through all the expenses to see which order to sort in
+        //compares the current expense to the following expense
         if (lowToHigh)
         {
             sort(expenseVec.begin(), expenseVec.end(), [](const Expense& a, const Expense& b) -> bool {  return a.name.compare(b.name) < 0; });
@@ -140,14 +145,15 @@ public:
 
     vector<Transaction> transactionVec;
 
-    //
     Budget myBudget = Budget("account.txt");
 
 
-    BudgetManipulation(vector<Quota> quotaVec)
+    BudgetManipulation(vector<Transaction> transVec)
     {
+        cout << "before trans" << endl;
+        this->transactionVec = transVec;
+        cout << "after trans";
         this->quotaVec = myBudget.getAllQuotas();
-        this->transactionVec = myBudget.getAllTransactions();
         setCategories();
         setQuotas();
         setExpenses();
@@ -172,17 +178,24 @@ public:
         for(auto transactions: transactionVec)
         {
             string categoryName = transactions.getCategory();
-            if(find(categoryVec.begin(), categoryVec.end(), categoryName) != categoryVec.end())
+
+            auto iterator = find_if(categoryVec.begin(), categoryVec.end(), [&categoryName](const Category& cat) {return cat.name == categoryName;});
+            if(iterator != categoryVec.end())
             {
                 Category category = Category();
                 category.setCategoryName(categoryName);
                 //makes new category
                 categoryVec.push_back(category);
             }
+            else
+            {
+                (*iterator).setCategoryName(categoryName);
+            }
         }
     }
 
-    void setCatPercent(){
+    void setCatPercent()
+    {
         for(int i=0;i<=percentages.size();i++){
             categoryVec[i].percent=percentages[i];
         }
@@ -222,7 +235,7 @@ public:
     void setQuotas()
     {
         for(auto & category:categoryVec){
-            category.setbudgetAmount(quotaVec.front().getSpendLimit());
+            category.setBudgetAmount(quotaVec.front().getSpendLimit());
         }
     }
 
