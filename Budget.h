@@ -57,8 +57,6 @@ private:
     vector<Quota> allQuotas;
     deque<Transaction> reminders;
 
-    void parseQuotaData(string quotaName);
-
     void parseTransactionData();
 
     void parseQuotaData(string quotaName);
