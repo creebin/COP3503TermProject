@@ -116,6 +116,7 @@ public:
 class BudgetManipulation
 {
 private:
+	Budget myBudget;
 public:
 	vector<Category> categoryVec;
 
@@ -145,11 +146,11 @@ public:
 
 	vector<Transaction> transactionVec;
 
+	
 
-	Budget myBudget = Budget("account.txt");
-
-	BudgetManipulation()
+	BudgetManipulation(Budget& myBudget)
 	{
+		this->myBudget = myBudget;
 		this->transactionVec = myBudget.getAllTransactions();
 		this->quotaVec = myBudget.getAllQuotas();
 		setCategories();

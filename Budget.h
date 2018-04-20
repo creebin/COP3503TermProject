@@ -72,7 +72,7 @@ private:
 	Date lastDate();
 
 public:
-
+	Budget();
 	vector<Transaction> getAllTransactions();
 
 	vector<Transaction> getAprilTransactions();
