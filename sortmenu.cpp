@@ -6,7 +6,7 @@ class SortMenu
 public:
 	//call method on class without creating class first
 	//implements function
-	static void sortOption(BudgetManipulation* sortEverything)
+	static void sortOption(BudgetManipulation &sortEverything)
 	{
 		int choice;
 		while (true)
@@ -19,12 +19,12 @@ public:
 
 			if (choice == 1)
 			{
-				sortCategories(sortEverything);
+				sortCategories(&sortEverything);
 				break;
 			}
 			else if (choice == 2)
 			{
-				sortExpenses(sortEverything);
+				sortExpenses(&sortEverything);
 				break;
 			}
 			else if (choice == 3)

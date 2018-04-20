@@ -67,6 +67,9 @@ Transaction::Transaction() {
 	reOccuring = false;
 }
 
+Budget::Budget() {
+
+}
 //Takes one line of data from the file and puts it into a Transaction object, then adds those objects to the vector
 void Budget::parseTransactionData() {
 
