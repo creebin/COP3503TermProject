@@ -413,7 +413,7 @@ void Budget::createBudget() {
     string budgetName;
     int userSpending;
     //Creates a new text file to hold the budget
-    cout << "Choose a transactionName for your new budget" << endl;
+    cout << "Choose a name for your new budget" << endl;
     cin >> budgetName;
     budgetName.append(".txt");
     ofstream budgetFile(budgetName);
@@ -461,13 +461,14 @@ void Budget::changeBudget() {
     cout << "What is your existing budget called?" << endl;
     cin >> budgetName;
     budgetName.append(".txt");
-    fstream budgetFile;
+    ifstream budgetFile;
     budgetFile.open(budgetName);
     if (!budgetFile) {
         cout << "Budget not found" << endl;
+        return;
     }
     //Lets the user select what they want to change
-    cout << "Which categoryName do you want to change?" << endl;
+    cout << "Which category do you want to change?" << endl;
     cout << "1. Housing" << endl;
     cout << "2. Entertainment" << endl;
     cout << "3. Food" << endl;
@@ -511,30 +512,41 @@ void Budget::changeBudget() {
     }
     cout << "How much do you want to spend on " << editCategory << endl;
     cin >> userChoice;
+    vector<Quota> functionQuota;
+    string currentLine;
+    Quota tempQuota;
 
-    //Copies all lines except the one to be changed to a temporary file
-    ofstream tempFile;
-    tempFile.open("tempFile.txt", ios::app);
+    //Parses through the budget file and puts the data into functionQuota
     while (budgetFile.good()) {
-        getline(budgetFile, parseHelper);
-        categoryFinder = parseHelper.find(editCategory);
-        if (categoryFinder == string::npos) {
-            tempFile << parseHelper << endl;
-            continue;
+
+        getline(budgetFile, currentLine);
+
+        //parseHelper is the categoryName at this line
+        parseHelper = currentLine.substr(0, currentLine.find(' '));
+        tempQuota.setCategory(parseHelper);
+        currentLine.erase(0, currentLine.find('|') + 2);
+
+        //parseHelper is the spending limit at this line
+        tempQuota.setSpendLimit(stoi(currentLine));
+        if(tempQuota.getCategory() == editCategory){
+            tempQuota.setCategory(editCategory);
+            tempQuota.setSpendLimit(userChoice);
         }
-        //Writes edit to the temporary file
-        if (editCategory == "Other") {
-            tempFile << editCategory << " | " << userChoice;
-        } else {
-            tempFile << editCategory << " | " << userChoice << endl;
-        }
+        functionQuota.push_back(tempQuota);
     }
-    //Closes the files
+    //Closes the file
     budgetFile.close();
-    tempFile.close();
-    //Replaces the old budget with the new one and renames them
-    remove(budgetName.c_str());
-    rename("tempFile.txt", budgetName.c_str());
+    //Writes quota data to new file
+    ofstream budgetWrite;
+    budgetWrite.open(budgetName);
+
+    for (int i = 0; i < functionQuota.size()-1; i++) {
+        budgetWrite << functionQuota[i].getCategory() << " | " << functionQuota[i].getSpendLimit() << endl;
+    }
+    //Prevents an extra newline character at the end of the file
+    budgetWrite << functionQuota[functionQuota.size() - 1].getCategory() << " | "
+                << functionQuota[functionQuota.size() - 1].getSpendLimit();
+    budgetWrite.close();
 
 }
 //Allows the user to use an existing budget
