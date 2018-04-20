@@ -8,18 +8,18 @@ using namespace std;
 
 class Quota {
 private:
-    int spendLimit;
-    string category;
+	int spendLimit;
+	string category;
 public:
-    Quota();
+	Quota();
 
-    int getSpendLimit();
+	int getSpendLimit();
 
-    void setSpendLimit(int newLimit);
+	void setSpendLimit(int newLimit);
 
-    string getCategory();
+	string getCategory();
 
-    void setCategory(string newCategory);
+	void setCategory(string newCategory);
 
 };
 
