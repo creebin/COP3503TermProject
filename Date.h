@@ -2,33 +2,35 @@
 #define GROUPPROJECT_DATE_H
 #include <string>
 
+using namespace std;
+
 struct Date {
 
-    int month;
-    int day;
-    int year;
+	int month;
+	int day;
+	int year;
 
-    Date(int month, int day, int year);
+	Date(int month, int day, int year);
 
-    Date(Date const &newDate);
+	Date(Date const &newDate);
 
-    Date();
+	Date();
 
-    string toString();
+	string toString();
 
-    int compareTo(Date other) const;
+	int compareTo(Date other) const;
 
-    int getDay();
+	int getDay();
 
-    int getMonth();
+	int getMonth();
 
-    int getYear();
+	int getYear();
 
-    void setDay(int newDay);
+	void setDay(int newDay);
 
-    void setMonth(int newMonth);
+	void setMonth(int newMonth);
 
-    void setYear(int newYear);
+	void setYear(int newYear);
 };
 
 
