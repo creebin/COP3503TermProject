@@ -374,16 +374,64 @@ void Budget::addNewTransaction() {
 //Allows a transaction to be deleted
 void Budget::deleteTransaction() {
     string inputName;
-   // size_t nameFinder;
+    string inputDate;
+    Budget functionBudget("account.txt");
+    vector<Transaction> functionTransactions = functionBudget.getAllTransactions();
+    functionBudget.closeFile();
+
     cout << "What transaction should be deleted?" << endl;
     cin >> inputName;
-    for (int i = 0; i < allTransactions.size(); i++) {
-        if(allTransactions[i].getName().find(inputName) != string::npos){
-            cout << "Found it" << endl;
-        }else{
-            cout << "Didn't find it " << endl;
+    cout << "When was this transaction (MM/DD/YYYY)?" << endl;
+    cin >> inputDate;
+
+    ofstream functionFile("account.txt");
+
+    //Handles zeroes in the inputDate
+    if (inputDate[0] == '0') {
+        inputDate.erase(0, 1);
+        if (inputDate[2] == '0') {
+            string dateHelper;
+            dateHelper += inputDate[0];
+            dateHelper += inputDate[1];
+            for (int i = 3; i < 9; i++) {
+                dateHelper += inputDate[i];
+            }
+            inputDate = dateHelper;
         }
     }
+    if (inputDate[3] == '0') {
+        string dateHelper;
+        dateHelper += inputDate[0];
+        dateHelper += inputDate[1];
+        dateHelper += inputDate[2];
+        for (int i = 4; i < 10; i++) {
+            dateHelper += inputDate[i];
+        }
+        inputDate = dateHelper;
+    }
+    cout << inputDate << endl;
+
+    //Writes all transactions to the file except the one to be deleted
+    for (int i = 0; i < functionTransactions.size() - 1; i++) {
+        if (functionTransactions[i].getName().find(inputName) == string::npos ||
+            (functionTransactions[i].getDate().toString() != inputDate &&
+             functionTransactions[i].getName().find(inputName) != string::npos)) {
+            functionFile << functionTransactions[i].getCategory() << " | " << functionTransactions[i].getName() << " $"
+                         << functionTransactions[i].getAmount() << " | " <<
+                         functionTransactions[i].getDate().toString() << endl;
+        }
+    }
+    //Prevents an extra newline at the end of the file
+    if (functionTransactions[functionTransactions.size() - 1].getName().find(inputName) ==
+        string::npos || (functionTransactions[functionTransactions.size() - 1].getDate().toString() != inputDate &&
+                         functionTransactions[functionTransactions.size() - 1].getName() == inputName)) {
+        functionFile << functionTransactions[functionTransactions.size() - 1].getCategory() << " | "
+                     << functionTransactions[functionTransactions.size() - 1].getName() << " $"
+                     << functionTransactions[functionTransactions.size() - 1].getAmount() << " | " <<
+                     functionTransactions[functionTransactions.size() - 1].getDate().toString();
+    }
+    //Closes the file
+    functionFile.close();
 }
 
 //Saves sorted Transactions
