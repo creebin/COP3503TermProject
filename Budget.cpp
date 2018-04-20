@@ -289,10 +289,10 @@ void Budget::addNewTransaction() {
     double inputAmount;
 
     //Gets input from the user
-    cout << "Enter the transactionName of the transaction: " << endl;
+    cout << "Enter the name of the transaction: " << endl;
     cin >> inputString;
     newTransaction.setName(inputString);
-    cout << "Select the categoryName of the transaction: " << endl;
+    cout << "Select the category of the transaction: " << endl;
     cout << "1. Housing" << endl;
     cout << "2. Entertainment" << endl;
     cout << "3. Food" << endl;
@@ -334,7 +334,7 @@ void Budget::addNewTransaction() {
         default:
             cout << "Invalid selection" << endl;
     }
-    cout << "Enter the transactionAmount of the transaction : " << endl;
+    cout << "Enter the amount of the transaction : " << endl;
     cin >> inputAmount;
     newTransaction.setAmount(inputAmount);
     cout << "Enter the date of the transaction (MM/DD/YYYY): " << endl;
