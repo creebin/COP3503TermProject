@@ -1,9 +1,6 @@
 #include <iostream>
 #include "Budget.h"
 #include "ui.h"
-#include "Date.h"
-#include "Quota.h"
-
 
 using namespace std;
 
@@ -90,7 +87,7 @@ void userMenu() {
 					
 				case 8:
 					
-					closingScreen();
+					//closingScreen();
 					return;
 					
 				default: 
@@ -110,7 +107,7 @@ void welcomeMenu() {
 		string welcomeInput;
 	
 	cout << "+--------------------------------+\n";
-	cout << "|Choose a budget option:         |\n "
+	cout << "|Choose a budget option:         |\n ";
 	cout << "|================================|\n";
         cout << "|1. Create New Budget            |\n";
         cout << "|--------------------------------|\n";
@@ -163,7 +160,7 @@ int main(){
     //Assign vectors then pass them to necessary sorting functions
     aprilTest = mainBudget.getAprilTransactions();
     mayTest = mainBudget.getMayTransactions();
-    myTest = mainBudget.getAllTransactions();
+    allTest = mainBudget.getAllTransactions();
     
 	//this is how u use the graph code
     	BarGraph b;
