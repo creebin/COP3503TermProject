@@ -292,7 +292,7 @@ void Budget::addNewTransaction() {
     cout << "Enter the name of the transaction: " << endl;
     cin >> inputString;
     newTransaction.setName(inputString);
-    cout << "Select the category of the transaction: " << endl;
+    cout << "Select the name of the transaction: " << endl;
     cout << "1. Housing" << endl;
     cout << "2. Entertainment" << endl;
     cout << "3. Food" << endl;
@@ -345,31 +345,36 @@ void Budget::addNewTransaction() {
     newFileData << "\n" << newTransaction.getCategory() << " | " << newTransaction.getName() << ": $" << inputAmount
                 << " | " << inputString;
 
+
     //Handles user adding dates with 1-digit months and days
-    if (inputString[0] == '0') {
-        inputString.erase(0, 1);
-    }
+if (inputString[0] == '0') {
+inputString.erase(0, 1);
+}
+//parseHelper is the month at this line
+parseHelper = inputString.substr(0, inputString.find('/'));
+//Checks if there is an extra zero before converting parseHelper to an int
+if (parseHelper[0] == '0') {
+parseHelper.erase(0, 1);
+}
+int localMonth = stoi(parseHelper);
+inputString.erase(0, inputString.find('/') + 1);
 
-    //Uses parsing code from a previous function to handle the date
-    parseHelper = inputString.substr(0, inputString.find('/'));
-    newTransaction.getDate().setMonth(stoi(parseHelper));
-    inputString.erase(0, inputString.find('/') + 1);
-    if (inputString[0] == '0') {
-        inputString.erase(0, 1);
-    }
+//parseHelper is day at this line
+parseHelper = inputString.substr(0, inputString.find('/'));
+if (parseHelper[0] == '0') {
+parseHelper.erase(0, 1);
+}
+int localDay = stoi(parseHelper);
+inputString.erase(0, inputString.find('/') + 1);
+//Sets the transaction date
+int localYear = stoi(inputString);
+newTransaction.setDate(localMonth, localDay, localYear);
+//Adds the transaction to the vector of transactions
+allTransactions.push_back(newTransaction);
+/*
+updateReOccurance();
+updateReminders(); */
 
-    parseHelper = inputString.substr(0, inputString.find('/'));
-    newTransaction.getDate().setDay(stoi(parseHelper));
-    inputString.erase(0, inputString.find('/') + 1);
-
-    //parseHelper is the year at this line
-    parseHelper = inputString;
-    newTransaction.getDate().setYear(stoi(parseHelper));
-    //Adds the transaction to the vector of transactions
-    allTransactions.push_back(newTransaction);
-    updateReOccurance();
-    updateReminders();
-    
 }
 //Allows a transaction to be deleted
 void Budget::deleteTransaction() {
