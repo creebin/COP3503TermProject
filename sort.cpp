@@ -150,9 +150,7 @@ public:
 
     BudgetManipulation(vector<Transaction> transVec)
     {
-        cout << "before trans" << endl;
         this->transactionVec = transVec;
-        cout << "after trans";
         this->quotaVec = myBudget.getAllQuotas();
         setCategories();
         setQuotas();
