@@ -14,88 +14,93 @@ using namespace std;
 //Transaction class to group the data together
 class Transaction {
 private:
-	//Member variables
-	string transactionName;
-	string categoryName;
-	double transactionAmount;
-	Date transactionDate;
-	bool reOccuring;
+    //Member variables
+    string transactionName;
+    string categoryName;
+    double transactionAmount;
+    Date transactionDate;
+    bool reOccuring;
 
 public:
-	//Member functions
-	string getName();
+    //Member functions
+    string getName();
 
-	void setName(string newName);
+    void setName(string newName);
 
-	string getCategory();
+    string getCategory();
 
-	void setCategory(string newCategory);
+    void setCategory(string newCategory);
 
-	double getAmount();
+    double getAmount();
 
-	void setAmount(double newAmount);
+    void setAmount(double newAmount);
 
-	Date getDate();
+    Date getDate();
 
-	void setDate(int month, int day, int year);
+    void setDate(int month, int day, int year);
 
-	bool getOccurance();
+    bool getOccurance();
 
-	void setOccurance(bool reOccuring);
+    void setOccurance(bool reOccuring);
 
-	Transaction();
+    Transaction();
 };
 
 //Bank account class to group the transactions together
 class Budget {
 private:
-	ifstream fileData;
-	string fileName;
-	vector<Transaction> allTransactions;
-	vector<Transaction> aprilTransactions;
-	vector<Transaction> mayTransactions;
-	vector<Quota> allQuotas;
-	deque<Transaction> reminders;
+    ifstream fileData;
+    string fileName;
+    string quotaName;
+    vector<Transaction> allTransactions;
+    vector<Transaction> aprilTransactions;
+    vector<Transaction> mayTransactions;
+    vector<Quota> allQuotas;
+    deque<Transaction> reminders;
 
-	void parseTransactionData();
-
-	void parseQuotaData(string quotaName);
-
-	void updateReOccurance();
-
-	void updateReminders();
-
-	vector<Transaction> removeReoccurance(vector<Transaction> input);
-
-	void checkReOccurance(Transaction input);
-
-	Date lastDate();
+    void parseTransactionData();
+    
+    void updateReOccurance();
+    
+    void updateReminders();
+    
+    vector<Transaction> removeReoccurance(vector<Transaction> input);
+    
+    void checkReOccurance(Transaction input);
+    
+    Date lastDate();
 
 public:
-	Budget();
-	vector<Transaction> getAllTransactions();
 
-	vector<Transaction> getAprilTransactions();
+    vector<Transaction> getAllTransactions();
 
-	vector<Transaction> getMayTransactions();
+    vector<Transaction> getAprilTransactions();
 
-	vector<Quota> getAllQuotas();
+    vector<Transaction> getMayTransactions();
 
-	void addNewTransaction();
+    vector<Quota> getAllQuotas();
 
-	void deleteTransaction();
+    string getQuotaName();
 
-	void saveTransactions(vector<Transaction> saveVector);
+    void setQuotaName(string newName);
 
-	void createBudget();
+    void parseQuotaData(string quotaName);
 
-	void changeBudget();
+    void addNewTransaction();
 
-	void useBudget();
+    void deleteTransaction();
 
-	void closeFile();
+    void saveTransactions(vector<Transaction> saveVector);
 
-	explicit Budget(string inputName);
+    void createBudget();
+
+    void changeBudget();
+
+    void useBudget();
+
+    void closeFile();
+
+    explicit Budget(string inputName);
 };
 
 #endif //BUDGET_BUDGET_H
