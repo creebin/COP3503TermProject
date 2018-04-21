@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Budget.h"
-#include "ui.h"
+#include "sortmenu.cpp"
+
 
 using namespace std;
 
@@ -151,42 +152,145 @@ void welcomeMenu() {
 
 
 int main(){
-    
-    vector<Transaction> allTest;
-    vector<Transaction> aprilTest;
-    vector<Transaction> mayTest;
-    
     Budget mainBudget("account.txt");
-    //Assign vectors then pass them to necessary sorting functions
-    aprilTest = mainBudget.getAprilTransactions();
-    mayTest = mainBudget.getMayTransactions();
-    allTest = mainBudget.getAllTransactions();
-    
-	//this is how u use the graph code
-    	BarGraph b;
+   // mainBudget.parseQuotaData("abc.txt");
+    //vector<Quota> myQuota = mainBudget.getAllQuotas();
+/*
+    for (int i = 0; i < 9; ++i) {
+        cout << myQuota[i].getCategory() << " | " << myQuota[i].getSpendLimit() << endl;
+    }*/
 
-	vector<string> categoryList;
-	vector<int> moneyAmounts;
+    bool validInput = false;
 
-	vector<int> graphMoney;
-	int totalBudget;
+    while (!validInput) {
+        string welcomeInput;
 
-	totalBudget = 52360;
-	categoryList.push_back("Morgage");
-	categoryList.push_back("Food");
-	categoryList.push_back("Transportation");
-	moneyAmounts.push_back(5);
-	moneyAmounts.push_back(5);
-	moneyAmounts.push_back(52350);
+        cout << "+--------------------------------+\n";
+        cout << "|Choose a budget option:         |\n ";
+        cout << "|================================|\n";
+        cout << "|1. Create New Budget            |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|2. Change Existing Budget       |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|3. Use Existing Budget          |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|4. Exit Program                 |\n";
+        cout << "+--------------------------------+\n";
+        cin >> welcomeInput;
+        // takes user input and sends it to a function that will check if the input is a number.
+        validInput = inputChecker(welcomeInput);
+        if (!validInput) {
+            cout << "Invalid input please try again\n";
+        }
+        else {
+            int numInput = stoi(welcomeInput);
+            // switch statement has cases that correspond to the menu options
+            switch (numInput) {
+                case 1:
+                    mainBudget.createBudget();
+                    break;
 
-	
-	b.setBudget(totalBudget);
-	b.setCats(categoryList);
-	b.setMoney(moneyAmounts);
-	b.setRatio(b.cropData(b.ratioData()));
-	b.printGraph();
-    
+                case 2:
+                    mainBudget.changeBudget();
+                    break;
 
+                case 3:
+                    mainBudget.useBudget();
+                    break;
+
+                case 4:
+
+                    break;
+
+                default:
+                    cout << "Invalid input please try again";
+                    validInput = false;
+            }
+        }
+
+    }
+    mainBudget.closeFile();
+    string quotaName = mainBudget.getQuotaName();
+    BudgetManipulation sortEverything(quotaName);
+    validInput = false;
+    while (!validInput) {
+        string userMenuInput;
+        cout << "+--------------------------------+\n";
+        cout << "|What would you like to do?      |\n";
+        cout << "|================================|\n";
+        cout << "|1. Print                        |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|2. Change budget amount	  |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|3. Add expense or transcation   |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|4. Delete expense or transaction|\n";
+        cout << "|--------------------------------|\n";
+        cout << "|5. Sort                         |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|6. Save                         |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|7. Graph                        |\n";
+        cout << "|--------------------------------|\n";
+        cout << "|8. Exit                         |\n";
+        cout << "+--------------------------------+\n";
+        cin >> userMenuInput;
+
+        // Sends user input for the menu option chosen to the inputChecker function to ensure the input is a number.
+        // If the input is not valid it will print an error message and reprint the menu.
+        bool validInput = inputChecker(userMenuInput);
+        if (!validInput) {
+            cout << "Invalid input please try again\n";
+        }
+        else {
+            // If the input is a number it will parse the input from a string to a integer and use this number to direct
+            // the user to the chosen menu function.
+            int numInput = stoi(userMenuInput);
+            switch (numInput) {
+                case 1:
+
+                    cout << sortEverything.toString();
+                    break;
+
+                case 2:
+                    //superfluous
+                    break;
+
+                case 3:
+                    mainBudget.addNewTransaction();
+                    break;
+
+                case 4:
+                    mainBudget.deleteTransaction();
+                    break;
+
+                case 5:
+                    SortMenu case5;
+                    case5.sortOption(sortEverything);
+                    break;
+
+                case 6:
+                    //what to call here?
+                    break;
+
+                case 7:
+
+
+                    break;
+
+                case 8:
+
+                    //u.closingScreen();
+                    return 0;
+
+                default:
+                    cout << "Invalid input please try again";
+                    validInput = false;
+
+            }
+        }
+
+    }
     mainBudget.closeFile();
   
 return 0;
