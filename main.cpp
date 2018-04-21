@@ -153,7 +153,7 @@ void welcomeMenu() {
 
 int main(){
     Budget mainBudget("account.txt");
-   // mainBudget.parseQuotaData("abc.txt");
+    // mainBudget.parseQuotaData("abc.txt");
     //vector<Quota> myQuota = mainBudget.getAllQuotas();
 /*
     for (int i = 0; i < 9; ++i) {
@@ -166,7 +166,7 @@ int main(){
         string welcomeInput;
 
         cout << "+--------------------------------+\n";
-        cout << "|Choose a budget option:         |\n ";
+        cout << "|Choose a budget option:         |\n";
         cout << "|================================|\n";
         cout << "|1. Create New Budget            |\n";
         cout << "|--------------------------------|\n";
@@ -207,8 +207,8 @@ int main(){
                     validInput = false;
             }
         }
-
     }
+
     mainBudget.closeFile();
     string quotaName = mainBudget.getQuotaName();
     BudgetManipulation sortEverything(quotaName);
@@ -220,7 +220,7 @@ int main(){
         cout << "|================================|\n";
         cout << "|1. Print                        |\n";
         cout << "|--------------------------------|\n";
-        cout << "|2. Change budget amount	  |\n";
+        cout << "|2. Change budget amount	     |\n";
         cout << "|--------------------------------|\n";
         cout << "|3. Add expense or transcation   |\n";
         cout << "|--------------------------------|\n";
@@ -265,8 +265,7 @@ int main(){
                     break;
 
                 case 5:
-                    SortMenu case5;
-                    case5.sortOption(sortEverything);
+                    SortMenu::sortOption(sortEverything);
                     break;
 
                 case 6:
